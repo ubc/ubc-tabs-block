@@ -19,6 +19,7 @@ const {
 } = wp.blockEditor
 
 const { Fragment } = wp.element
+const { InnerBlocks } = wp.blockEditor;
 
 registerBlockType( "ubc/tabs", {
 	title: 'UBC Tabs Block',
@@ -31,7 +32,7 @@ registerBlockType( "ubc/tabs", {
 	category: 'layout',
 	attributes,
 	edit,
-	save: () => 'test',
+	save: () => <InnerBlocks.Content />,
 	styles: [
 		{
 			name: 'default',

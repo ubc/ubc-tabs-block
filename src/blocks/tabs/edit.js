@@ -12,13 +12,7 @@ const { withSelect } = wp.data;
     const { attributes, setAttributes } = props;
     const { tabTitle, tabSelected, blockID } = attributes;
     let innerBlocks = null;
-    let allowedBlocks = props.getBlockTypes()
-    .map( function( block ) {
-        return block.name;
-    } )
-    .filter( function( name ) {
-        return name != 'ubc/tab';
-    } );
+    let allowedBlocks = 'ubc/tab';
 
     if( !blockID ){
         setAttributes({
@@ -51,13 +45,18 @@ const { withSelect } = wp.data;
 
     console.log(innerBlocks);
     return (
-        <>
-            <ul>
+        <div className="accordion-tabs js-tabs">
+            <ul className="tabs-tab-list" role="tablist">
                 { tabTitle.map( ( singleTitle, key ) => {
                     return (    
-                        <li>
+                        <li role="presentation">
                             {
-                                <Button
+                                <a 
+                                    role="tab" 
+                                    id={ `tab${key}` }
+                                    aria-control={ `section${key} `}
+                                    aria-selected={key===tabSelected}
+                                    className="tabs-trigger js-tabs-trigger"
                                     onClick={ () => {
                                         setAttributes({
                                             tabSelected: key,
@@ -68,16 +67,16 @@ const { withSelect } = wp.data;
                                     <RichText
                                     value={ singleTitle }
                                     onChange={ newContent => updateSingleTitle( key, newContent) }/>
-                                </Button>
+                                </a>
                             }
                         </li>
                     );
                 } ) }
             </ul>
-            <div class="ubc-tab-content">
+            <div class="ubc-tabs-block__content">
                 { blockID ? <InnerBlocks 
                     template = { innerBlocks }
-                    templateLock = { false }
+                    templateLock = { 'all' }
                     allowedBlocks = { allowedBlocks } /> : null }
             </div>
             <InspectorControls>
@@ -85,7 +84,7 @@ const { withSelect } = wp.data;
                     <PanelRow>My Panel Inputs and Labels</PanelRow>
                 </PanelBody>
             </InspectorControls>
-        </>
+        </div>
     );
  };
 
