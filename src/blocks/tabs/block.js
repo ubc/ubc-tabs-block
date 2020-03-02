@@ -5,7 +5,8 @@
 // Import block dependencies and components.
 import classnames from "classnames";
 import attributes from './attributes';
-import edit from './edit';
+import Edit from './edit';
+import Save from './save';
 
 const { __ } = wp.i18n
 
@@ -31,8 +32,8 @@ registerBlockType( "ubc/tabs", {
 	],
 	category: 'layout',
 	attributes,
-	edit,
-	save: () => <InnerBlocks.Content />,
+	edit: Edit,
+	save: Save,
 	styles: [
 		{
 			name: 'default',
