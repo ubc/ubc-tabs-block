@@ -1,0 +1,25 @@
+{
+  "name": "ubc-tab-block",
+  "version": "1.0.0",
+  "description": "Tab Block for UBC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start block.js frontend.js",
+    "build": "wp-scripts build block.js frontend.js"
+  },
+  "author": "Christy Yao",
+  "license": "GPL-2.0-only",
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.7.4",
+    "@wordpress/eslint-plugin": "^3.3.0",
+    "@wordpress/scripts": "^5.0.1",
+    "babel-plugin-lodash": "^3.3.4",
+    "classnames": "^2.2.6",
+    "css-loader": "^2.1.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.0.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.2.0"
+  }
+}

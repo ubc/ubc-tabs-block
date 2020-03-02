@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/blocks/tab/style.scss"],"names":[],"mappings":"AAAA;AACA,gBAAgB;AAChB;AACA,mBAAmB","file":"frontend.css","sourcesContent":[".tab-content {\n  display: none; }\n  .tab-content.active {\n    display: block; }\n"],"sourceRoot":""}
