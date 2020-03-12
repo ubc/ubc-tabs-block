@@ -37,6 +37,14 @@
          true
     );
 
+    wp_register_script(
+        'ubc-tab-block-frontend',
+        plugins_url( 'build/frontend.js', __FILE__ ),
+        array(),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js'),
+        true
+   );
+
     wp_register_style(
         'ubc-tab-editor',
         plugins_url( '/build/block.css', __FILE__ ),
@@ -54,7 +62,8 @@
     register_block_type( 'ubc/tab', array(
         'editor_script' => 'ubc-tab-block',
         'editor_style'  => 'ubc-tab-editor',
-        'style'         => 'ubc-tab-style'
+        'style'         => 'ubc-tab-style',
+        'script'        => 'ubc-tab-block-frontend'
     ) );
  }
 

@@ -97,10 +97,20 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/blocks/tab/style.scss */ "./src/blocks/tab/style.scss");
 /* harmony import */ var _src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! a11y-accordion-tabs */ "./node_modules/a11y-accordion-tabs/a11y-accordion-tabs.js");
-/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/blocks/tabs/style.scss */ "./src/blocks/tabs/style.scss");
+/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! a11y-accordion-tabs */ "./node_modules/a11y-accordion-tabs/a11y-accordion-tabs.js");
+/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_2__);
+console.log("dwdw");
 
 
+
+var tabs = document.querySelectorAll(".js-tabs");
+console.log(tabs);
+tabs.forEach(function (element) {
+  console.log(element);
+  new AccordionTabs(element);
+});
 
 /***/ }),
 
@@ -548,6 +558,17 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************!*\
   !*** ./src/blocks/tab/style.scss ***!
   \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/blocks/tabs/style.scss":
+/*!************************************!*\
+  !*** ./src/blocks/tabs/style.scss ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
