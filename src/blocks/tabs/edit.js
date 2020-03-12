@@ -45,7 +45,10 @@ const Edit = ( props ) => {
 
 	if ( blockID ) {
 		innerBlocks = tabTitle.map( function( title, key ) {
-			return [ 'ubc/tab', { blockID: attributes.blockID, index: key } ];
+			return [
+				'ubc/tab',
+				{ blockID: attributes.blockID, index: key, title },
+			];
 		} );
 	}
 
