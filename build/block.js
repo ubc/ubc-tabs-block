@@ -51417,6 +51417,14 @@ var Edit = function Edit(props) {
     });
   };
 
+  var isFirst = function isFirst(index) {
+    return index === 0;
+  };
+
+  var isLast = function isLast(index) {
+    return index === tabTitle.length - 1;
+  };
+
   var initializeTabs = function initializeTabs() {
     var element = document.getElementById(blockID);
     new AccordionTabs(element);
@@ -51439,7 +51447,33 @@ var Edit = function Edit(props) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
       role: "presentation",
       key: key
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+      onClick: function onClick(event) {
+        setAttributes({
+          tabTitle: tabTitle.filter(function (title, index) {
+            return key != index;
+          })
+        });
+      }
+    }, "Remove"), !isLast(key) && tabTitle.length > 1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+      onClick: function onClick(event) {
+        var newTabTitle = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle);
+
+        console.log(newTabTitle)[(newTabTitle[key], newTabTitle[key + 1])] = [newTabTitle[key + 1], newTabTitle[key]];
+        setAttributes({
+          tabTitle: newTabTitle
+        });
+      }
+    }, "Next") : null, !isFirst(key) && tabTitle.length > 1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+      onClick: function onClick(event) {
+        var newTabTitle = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle);
+
+        console.log(newTabTitle)[(newTabTitle[key + 1], newTabTitle[key])] = [newTabTitle[key], newTabTitle[key + 1]];
+        setAttributes({
+          tabTitle: newTabTitle
+        });
+      }
+    }, "Previous") : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
       value: singleTitle,
       onChange: function onChange(newContent) {
         return updateSingleTitle(key, newContent);

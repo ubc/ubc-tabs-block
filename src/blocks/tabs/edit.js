@@ -34,9 +34,17 @@ const Edit = ( props ) => {
 		} );
 	};
 
+	const isFirst = (index) => {
+		return index === 0;
+	};
+
+	const isLast = (index) => {
+		return index === tabTitle.length-1;
+	};
+
 	const initializeTabs = () => {
 		const element = document.getElementById(blockID);
-		new AccordionTabs(element)
+		new AccordionTabs(element);
 	};
 
 	initializeTabs()
@@ -56,6 +64,46 @@ const Edit = ( props ) => {
 				{ tabTitle.map( ( singleTitle, key ) => {
 					return (
 						<li role="presentation" key={ key }>
+							<Button
+								onClick={ ( event ) => {
+									setAttributes({
+									tabTitle: tabTitle.filter((title, index) => key != index)
+									}) 
+								}}
+							>
+								Remove
+							</Button>
+							{(!isLast(key) && tabTitle.length > 1) ? 
+								<Button
+									onClick={ ( event ) => {
+										const newTabTitle = [...tabTitle]
+										console.log(newTabTitle)
+										[newTabTitle[key], newTabTitle[key+1]] = [newTabTitle[key+1], newTabTitle[key]]
+										setAttributes({
+										tabTitle: newTabTitle
+										}) 
+									}}
+								>
+									Next
+								</Button>
+							: null
+							}
+							
+							{(!isFirst(key) && tabTitle.length > 1) ? 
+								<Button
+									onClick={ ( event ) => {
+										const newTabTitle = [...tabTitle]
+										console.log(newTabTitle)
+										[newTabTitle[key+1], newTabTitle[key]] = [newTabTitle[key], newTabTitle[key+1]]
+										setAttributes({
+										tabTitle: newTabTitle
+										}) 
+									}}
+								>
+									Previous
+								</Button>
+							: null
+							}
 							{
 								<>
 									<RichText
