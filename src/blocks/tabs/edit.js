@@ -2,7 +2,7 @@
  * BLOCK: Call To Action
  */
 const { InspectorControls } = wp.editor;
-const { PanelBody, PanelRow } = wp.components;
+const { PanelBody, PanelRow, Button } = wp.components;
 const { RichText, InnerBlocks } = wp.blockEditor;
 
 const Edit = ( props ) => {
@@ -34,8 +34,24 @@ const Edit = ( props ) => {
 		} );
 	};
 
+	const initializeTabs = () => {
+		const element = document.getElementById(blockID);
+		new AccordionTabs(element)
+	};
+
+	initializeTabs()
+
 	return (
-		<section className="accordion-tabs js-tabs">
+		<section className="accordion-tabs js-tabs" id={blockID}>
+			<Button
+				onClick={ ( event ) => {
+					setAttributes({
+					tabTitle: [...tabTitle, "title"]
+					}) 
+				}}
+			>
+				Add Tab
+			</Button>
 			<ul className="tabs-tab-list" role="tablist">
 				{ tabTitle.map( ( singleTitle, key ) => {
 					return (

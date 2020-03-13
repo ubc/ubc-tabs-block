@@ -51373,7 +51373,8 @@ __webpack_require__.r(__webpack_exports__);
 var InspectorControls = wp.editor.InspectorControls;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
-    PanelRow = _wp$components.PanelRow;
+    PanelRow = _wp$components.PanelRow,
+    Button = _wp$components.Button;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
     InnerBlocks = _wp$blockEditor.InnerBlocks;
@@ -51416,9 +51417,22 @@ var Edit = function Edit(props) {
     });
   };
 
+  var initializeTabs = function initializeTabs() {
+    var element = document.getElementById(blockID);
+    new AccordionTabs(element);
+  };
+
+  initializeTabs();
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", {
-    className: "accordion-tabs js-tabs"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
+    className: "accordion-tabs js-tabs",
+    id: blockID
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+    onClick: function onClick(event) {
+      setAttributes({
+        tabTitle: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle), ["title"])
+      });
+    }
+  }, "Add Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
     className: "tabs-tab-list",
     role: "tablist"
   }, tabTitle.map(function (singleTitle, key) {

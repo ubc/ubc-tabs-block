@@ -114,7 +114,7 @@
 .accordion-tabs .tabs-trigger.hidden {
   display: none; }
 
-.accordion-tabs .tabs-tab-list .rich-text {
+.accordion-tabs .tabs-tab-list .editor-rich-text__editable {
   padding: 8px 12px;
   background-color: #002145;
   color: #ffffff;
