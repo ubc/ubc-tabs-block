@@ -4,17 +4,17 @@
 
 const attributes = {
 	tabTitle: {
-		type: "array",
-		default: [ "title", "title" ],
+		type: 'array',
+		default: [ 'title', 'title' ],
 	},
 	tabSelected: {
-		type: "number",
+		type: 'number',
 		default: 0,
 	},
 	blockID: {
-		type: "string",
+		type: 'string',
 		default: null,
-	}
-}
+	},
+};
 
-export default attributes
+export default attributes;

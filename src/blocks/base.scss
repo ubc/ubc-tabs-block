@@ -1,0 +1,10 @@
+$ubc-color: (
+  "primary": #002145,
+  "secondary": #2f5d7c,
+  "border": #d7e0e7,
+  "white": #ffffff
+);
+
+@function get-color($color) {
+  @return map-get($ubc-color, $color);
+}

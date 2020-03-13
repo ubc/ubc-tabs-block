@@ -20,10 +20,29 @@
  */
 
  add_action('init', 'ubc_tab_blocks_asset_load', 10);
+ add_action( 'wp_enqueue_scripts', 'ubc_tab_blocks_frontend_assets' );
+
+ function ubc_tab_blocks_frontend_assets() {
+    wp_enqueue_script(
+        'ubc-tab-script-frontend',
+        plugins_url( 'build/frontend.js', __FILE__ ),
+        array(),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.js'),
+        true
+   );
+
+   wp_register_style(
+        'ubc-tab-style-frontend',
+        plugins_url( '/build/frontend.css', __FILE__ ),
+        array('wp-editor'),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.css' )
+    );
+    wp_enqueue_style( 'ubc-tab-style-frontend' );
+ }
 
  function ubc_tab_blocks_asset_load(){
      wp_register_script(
-         'ubc-tab-block',
+         'ubc-tab-script-block',
          plugins_url( 'build/block.js', __FILE__ ),
          array(
              'wp-blocks',
@@ -38,23 +57,15 @@
     );
 
     wp_register_style(
-        'ubc-tab-editor',
+        'ubc-tab-style-block',
         plugins_url( '/build/block.css', __FILE__ ),
         array( 'wp-edit-blocks' ),
         filemtime( plugin_dir_path( __FILE__ ) . 'build/block.css' )
     );
 
-    wp_register_style(
-        'ubc-tab-style',
-        plugins_url( '/build/frontend.css', __FILE__ ),
-        array('wp-editor'),
-        filemtime( plugin_dir_path( __FILE__ ) . 'build/frontend.css' )
-    );
-
     register_block_type( 'ubc/tab', array(
-        'editor_script' => 'ubc-tab-block',
-        'editor_style'  => 'ubc-tab-editor',
-        'style'         => 'ubc-tab-style'
+        'editor_script' => 'ubc-tab-script-block',
+        'editor_style'  => 'ubc-tab-style-block',
     ) );
  }
 

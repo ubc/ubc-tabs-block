@@ -3,33 +3,25 @@
  */
 
 // Import block dependencies and components.
-import classnames from "classnames";
+import classnames from 'classnames';
 import attributes from './attributes';
 import Edit from './edit';
 import Save from './save';
 
-const { __ } = wp.i18n
+const { __ } = wp.i18n;
 
-const {
-	registerBlockType,
-	registerBlockStyle,
-} = wp.blocks
+const { registerBlockType, registerBlockStyle } = wp.blocks;
 
-const {
-	RichText
-} = wp.blockEditor
+const { RichText } = wp.blockEditor;
 
-const { Fragment } = wp.element
+const { Fragment } = wp.element;
 const { InnerBlocks } = wp.blockEditor;
 
-registerBlockType( "ubc/tabs", {
+registerBlockType( 'ubc/tabs', {
 	title: 'UBC Tabs Block',
 	description: 'Some description',
 	icon: 'book-alt',
-	keywords: [
-		__( "tabs" ),
-		__( "accordian" )
-	],
+	keywords: [ __( 'tabs' ), __( 'accordian' ) ],
 	category: 'layout',
 	attributes,
 	edit: Edit,
@@ -44,11 +36,11 @@ registerBlockType( "ubc/tabs", {
 			name: 'isolate tabs',
 			label: __( 'isolate tabs' ),
 			isDefault: false,
-		}
-	]
-} )
+		},
+	],
+} );
 
-registerBlockStyle( "ubc/tabs", {
-		name: 'default',
-		label: 'default',
-})
+registerBlockStyle( 'ubc/tabs', {
+	name: 'default',
+	label: 'default',
+} );

@@ -3,14 +3,18 @@
  */
 
 const attributes = {
-	blockID: {
-		type: "string",
-        default: null,
-    },
-    index: {
-        type: "number",
-        default: null,
-    },
-}
+  blockID: {
+    type: "string",
+    default: null
+  },
+  index: {
+    type: "number",
+    default: null
+  },
+  title: {
+    type: "string",
+    default: null
+  }
+};
 
-export default attributes
+export default attributes;
