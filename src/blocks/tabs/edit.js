@@ -76,12 +76,12 @@ const Edit = ( props ) => {
 							{(!isLast(key) && tabTitle.length > 1) ? 
 								<Button
 									onClick={ ( event ) => {
-										const newTabTitle = [...tabTitle]
-										console.log(newTabTitle)
-										[newTabTitle[key], newTabTitle[key+1]] = [newTabTitle[key+1], newTabTitle[key]]
+										const newTabTitle = [...tabTitle];
+										console.log(newTabTitle);
+										[newTabTitle[key], newTabTitle[key+1]] = [newTabTitle[key+1], newTabTitle[key]];
 										setAttributes({
 										tabTitle: newTabTitle
-										}) 
+										});
 									}}
 								>
 									Next
@@ -92,12 +92,12 @@ const Edit = ( props ) => {
 							{(!isFirst(key) && tabTitle.length > 1) ? 
 								<Button
 									onClick={ ( event ) => {
-										const newTabTitle = [...tabTitle]
-										console.log(newTabTitle)
-										[newTabTitle[key+1], newTabTitle[key]] = [newTabTitle[key], newTabTitle[key+1]]
+										const newTabTitle = [...tabTitle];
+										console.log(newTabTitle);
+										[newTabTitle[key-1], newTabTitle[key]] = [newTabTitle[key], newTabTitle[key-1]];
 										setAttributes({
 										tabTitle: newTabTitle
-										}) 
+										});
 									}}
 								>
 									Previous

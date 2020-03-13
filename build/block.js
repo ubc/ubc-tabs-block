@@ -51459,7 +51459,10 @@ var Edit = function Edit(props) {
       onClick: function onClick(event) {
         var newTabTitle = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle);
 
-        console.log(newTabTitle)[(newTabTitle[key], newTabTitle[key + 1])] = [newTabTitle[key + 1], newTabTitle[key]];
+        console.log(newTabTitle);
+        var _ref = [newTabTitle[key + 1], newTabTitle[key]];
+        newTabTitle[key] = _ref[0];
+        newTabTitle[key + 1] = _ref[1];
         setAttributes({
           tabTitle: newTabTitle
         });
@@ -51468,7 +51471,10 @@ var Edit = function Edit(props) {
       onClick: function onClick(event) {
         var newTabTitle = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle);
 
-        console.log(newTabTitle)[(newTabTitle[key + 1], newTabTitle[key])] = [newTabTitle[key], newTabTitle[key + 1]];
+        console.log(newTabTitle);
+        var _ref2 = [newTabTitle[key], newTabTitle[key - 1]];
+        newTabTitle[key - 1] = _ref2[0];
+        newTabTitle[key] = _ref2[1];
         setAttributes({
           tabTitle: newTabTitle
         });
