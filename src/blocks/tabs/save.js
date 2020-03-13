@@ -9,7 +9,7 @@ const Save = ( props ) => {
 	const { tabTitle, tabSelected, blockID } = attributes;
 
 	return (
-		<section className="accordion-tabs js-tabs" id={ `tabs-${ blockID }` }>
+		<section className="accordion-tabs js-tabs">
 			<ul className="tabs-tab-list" role="tablist">
 				{ tabTitle.map( ( singleTitle, key ) => {
 					return (

@@ -1,16 +1,16 @@
 const { InnerBlocks } = wp.blockEditor;
 
 export default props => {
-  console.log(props.attributes);
   return (
     <section
       block-id={props.attributes.blockID}
       index={props.attributes.index + 1}
-      className={`tab-content${props.attributes.index === 0 ? " active" : ""}`}
+      className={`tabs-panel js-tabs-panel tab-content${
+        props.attributes.index === 0 ? " active" : ""
+      }`}
       id={`section${props.attributes.index + 1}`}
       role="tabpanel"
       aria-labelledby={`tab${props.attributes.index + 1}`}
-      className="tabs-panel js-tabs-panel"
     >
       <div
         className="accordeon-trigger js-accordeon-trigger"

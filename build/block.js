@@ -96,27 +96,15 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_blocks_tab_block__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/blocks/tab/block */ "./src/blocks/tab/block.js");
-/* harmony import */ var _src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/blocks/tab/style.scss */ "./src/blocks/tab/style.scss");
-/* harmony import */ var _src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tab_style_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _src_blocks_tabs_block__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/blocks/tabs/block */ "./src/blocks/tabs/block.js");
 /* harmony import */ var _src_blocks_tabs_editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./src/blocks/tabs/editor.scss */ "./src/blocks/tabs/editor.scss");
 /* harmony import */ var _src_blocks_tabs_editor_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tabs_editor_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/blocks/tabs/style.scss */ "./src/blocks/tabs/style.scss");
-/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _src_blocks_tabs_block__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./src/blocks/tabs/block */ "./src/blocks/tabs/block.js");
-/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! a11y-accordion-tabs */ "./node_modules/a11y-accordion-tabs/a11y-accordion-tabs.js");
-/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! a11y-accordion-tabs */ "./node_modules/a11y-accordion-tabs/a11y-accordion-tabs.js");
+/* harmony import */ var a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 
-
-
-var tabs = document.querySelectorAll(".js-tabs");
-console.log(tabs);
-tabs.forEach(function (element) {
-  console.log(element);
-  new AccordionTabs(element);
-});
 
 /***/ }),
 
@@ -138,32 +126,6 @@ function _arrayWithoutHoles(arr) {
 }
 
 module.exports = _arrayWithoutHoles;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-module.exports = _defineProperty;
 
 /***/ }),
 
@@ -51226,29 +51188,25 @@ registerBlockType("ubc/tab", {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/index.js");
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/index.js");
 
 var InnerBlocks = wp.blockEditor.InnerBlocks;
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  console.log(props.attributes);
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", {
     "block-id": props.attributes.blockID,
-    index: props.attributes.index,
-    class: "tab-content".concat(props.attributes.index === 0 ? ' active' : ''),
-    id: "section".concat(props.attributes.index),
+    index: props.attributes.index + 1,
+    className: "tabs-panel js-tabs-panel tab-content".concat(props.attributes.index === 0 ? " active" : ""),
+    id: "section".concat(props.attributes.index + 1),
     role: "tabpanel",
-    "aria-labelledby": "tab".concat(props.attributes.index)
-  }, "class", "tabs-panel"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    "aria-labelledby": "tab".concat(props.attributes.index + 1)
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "accordeon-trigger js-accordeon-trigger",
     "aria-controls": "section".concat(props.attributes.index),
     tabindex: "0"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "content",
     "aria-hidden": true
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
     templateLock: false
   })));
 });
@@ -51264,63 +51222,48 @@ var InnerBlocks = wp.blockEditor.InnerBlocks;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/index.js");
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/@wordpress/element/build-module/index.js");
 
 var InnerBlocks = wp.blockEditor.InnerBlocks;
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  console.log(props.attributes);
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", {
     "block-id": props.attributes.blockID,
     index: props.attributes.index + 1,
-    className: "tab-content".concat(props.attributes.index === 0 ? " active" : ""),
+    className: "tabs-panel js-tabs-panel tab-content".concat(props.attributes.index === 0 ? " active" : ""),
     id: "section".concat(props.attributes.index + 1),
     role: "tabpanel",
     "aria-labelledby": "tab".concat(props.attributes.index + 1)
-  }, "className", "tabs-panel js-tabs-panel"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "accordeon-trigger js-accordeon-trigger",
     "aria-controls": "section".concat(props.attributes.index + 1),
     tabindex: "0"
-  }, props.attributes.title, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, props.attributes.title, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "accordeon-trigger-icon"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     className: "label--open"
-  }, "Open"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+  }, "Open"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     className: "label--close"
-  }, "Close"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+  }, "Close"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
     "aria-hidden": "true",
     focusable: "false",
     viewBox: "0 0 20 20"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
     className: "vert",
     height: "18",
     width: "2",
     fill: "currentColor",
     y: "1",
     x: "9"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("rect", {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
     height: "2",
     width: "18",
     fill: "currentColor",
     y: "9",
     x: "1"
-  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "content"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null)));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null)));
 });
-
-/***/ }),
-
-/***/ "./src/blocks/tab/style.scss":
-/*!***********************************!*\
-  !*** ./src/blocks/tab/style.scss ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -51424,40 +51367,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 /**
  * BLOCK: Call To Action
  */
 var InspectorControls = wp.editor.InspectorControls;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
-    PanelRow = _wp$components.PanelRow,
-    Button = _wp$components.Button;
+    PanelRow = _wp$components.PanelRow;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
     InnerBlocks = _wp$blockEditor.InnerBlocks;
-var compose = wp.compose.compose;
-var withSelect = wp.data.withSelect;
 
 var Edit = function Edit(props) {
   var attributes = props.attributes,
-      setAttributes = props.setAttributes;
+      setAttributes = props.setAttributes,
+      isSelected = props.isSelected;
   var tabTitle = attributes.tabTitle,
       tabSelected = attributes.tabSelected,
       blockID = attributes.blockID;
-  var innerBlocks = null;
-  var allowedBlocks = 'ubc/tab';
+  var allowedBlocks = 'ubc/tab'; // Set block ID to current block ID that assigned by WordPress when the block was created initially.
 
   if (!blockID) {
     setAttributes({
       blockID: props.clientId
     });
   }
+
+  var getInnerBlockTemplates = function getInnerBlockTemplates() {
+    if (!blockID) {
+      return;
+    }
+
+    return tabTitle.map(function (title, key) {
+      return ['ubc/tab', {
+        blockID: attributes.blockID,
+        index: key,
+        title: title
+      }];
+    });
+  };
 
   var updateSingleTitle = function updateSingleTitle(key, text) {
     var tabTitleClone = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(tabTitle);
@@ -51468,26 +51416,7 @@ var Edit = function Edit(props) {
     });
   };
 
-  var selectTabContent = function selectTabContent(key) {
-    var elements = document.querySelectorAll(".tab-content[block-id='".concat(attributes.blockID, "'][index='").concat(key, "']"));
-    var allElements = document.querySelectorAll(".tab-content[block-id='".concat(attributes.blockID, "']"));
-    allElements.forEach(function (element) {
-      element.classList.remove('active');
-    });
-    elements[0].classList.add('active');
-  };
-
-  if (blockID) {
-    innerBlocks = tabTitle.map(function (title, key) {
-      return ['ubc/tab', {
-        blockID: attributes.blockID,
-        index: key,
-        title: title
-      }];
-    });
-  }
-
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", {
     className: "accordion-tabs js-tabs"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
     className: "tabs-tab-list",
@@ -51496,44 +51425,33 @@ var Edit = function Edit(props) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
       role: "presentation",
       key: key
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-      role: "tab",
-      id: "tab".concat(key),
-      "aria-controls": "section".concat(key, " "),
-      "aria-selected": key === tabSelected,
-      className: "tabs-trigger js-tabs-trigger",
-      onClick: function onClick() {
-        setAttributes({
-          tabSelected: key
-        });
-        selectTabContent(key);
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
       value: singleTitle,
       onChange: function onChange(newContent) {
         return updateSingleTitle(key, newContent);
       }
-    })));
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "ubc-tabs-block__content"
-  }, blockID ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
-    template: innerBlocks,
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+      role: "tab",
+      id: "tab".concat(key),
+      "aria-controls": "section".concat(key, " "),
+      "aria-selected": key === tabSelected,
+      className: "tabs-trigger js-tabs-trigger ".concat(isSelected ? '' : 'hidden'),
+      href: "#section".concat(key + 1),
+      onClick: function onClick(event) {
+        return event.preventDefault();
+      }
+    }, "Select")));
+  })), blockID ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+    template: getInnerBlockTemplates(),
     templateLock: 'all',
     allowedBlocks: allowedBlocks
-  }) : null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+  }) : null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
     title: "My Block Settings",
     initialOpen: true
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "My Panel Inputs and Labels"))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (compose(withSelect(function (select, props) {
-  var _select = select('core/blocks'),
-      getBlockTypes = _select.getBlockTypes;
-
-  return {
-    getBlockTypes: getBlockTypes
-  };
-}))(Edit));
+/* harmony default export */ __webpack_exports__["default"] = (Edit);
 
 /***/ }),
 
@@ -51571,8 +51489,7 @@ var Save = function Save(props) {
       tabSelected = attributes.tabSelected,
       blockID = attributes.blockID;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", {
-    className: "accordion-tabs js-tabs",
-    id: "tabs-".concat(blockID)
+    className: "accordion-tabs js-tabs"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
     className: "tabs-tab-list",
     role: "tablist"
@@ -51592,17 +51509,6 @@ var Save = function Save(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Save);
-
-/***/ }),
-
-/***/ "./src/blocks/tabs/style.scss":
-/*!************************************!*\
-  !*** ./src/blocks/tabs/style.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ })
 
