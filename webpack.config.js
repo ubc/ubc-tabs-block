@@ -1,6 +1,6 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
- 
+const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+
 module.exports = {
 	...defaultConfig,
 	module: {
@@ -9,28 +9,26 @@ module.exports = {
 			...defaultConfig.module.rules,
 			{
 				test: /\.scss$/,
-				use: 
-				[
-					{ loader: MiniCssExtractPlugin.loader }, 
-					{ loader: "css-loader" },
+				use: [
+					{ loader: MiniCssExtractPlugin.loader },
+					{ loader: 'css-loader' },
 					{
 						loader: 'postcss-loader', // Run post css actions
 						options: {
-							plugins: function () { // post css plugins, can be exported to postcss.config.js
-							return [
-								require('autoprefixer')
-							];
-							}
-						}
+							plugins() {
+								// post css plugins, can be exported to postcss.config.js
+								return [ require( 'autoprefixer' ) ];
+							},
+						},
 					},
-					{ loader: "sass-loader" }
-				]
-			}
-		]
+					{ loader: 'sass-loader' },
+				],
+			},
+		],
 	},
 	plugins: [
-		new MiniCssExtractPlugin({
-			filename: "[name].css",
-		}),
-	]
+		new MiniCssExtractPlugin( {
+			filename: '[name].css',
+		} ),
+	],
 };

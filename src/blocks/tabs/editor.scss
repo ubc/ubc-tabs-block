@@ -1,24 +1,73 @@
 @import "./style";
 
-.accordion-tabs {
-  .tabs-trigger.hidden {
-    display: none;
+.ubc-accordion-tabs {
+  &__controlls {
+    text-align: right;
   }
 
-  .tabs-tab-list {
-    .editor-rich-text__editable {
-      padding: 8px 12px;
-      background-color: get-color("primary");
+  &__tab-list {
+    position: relative;
+    list-style-type: none !important;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 !important;
+    padding-top: 50px !important;
+    margin-bottom: 30px !important;
+  }
+
+  &__tab-toolbar {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    transform: translateY(-100%);
+    display: flex;
+    button {
+      padding: 5px;
       color: get-color("white");
-      margin-right: 5px;
+      background-color: get-color("red");
+
+      &.disabled {
+        color: get-color("gray");
+      }
+      &:focus {
+        background-color: get-color("red") !important;
+        color: get-color("white") !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+      &:hover {
+        background-color: darken(get-color("red"), 10%);
+      }
+    }
+  }
+
+  &__button {
+    @extend %button;
+    margin: 0 5px 0 1px;
+
+    &.is-active {
+      background-color: get-color("primary");
     }
   }
 }
 
 .wp-block[data-type="ubc/tabs"] {
-  &:not(.is-selected):not(.has-child-selected) {
+  & {
     div[data-block] {
       margin: 0;
+    }
+  }
+  .wp-block[data-type="ubc/tab"] {
+    > .editor-block-list {
+      &__insertion-point {
+        display: none;
+      }
+    }
+    .editor-block-list {
+      &__breadcrumb {
+        display: none;
+      }
     }
   }
 }
