@@ -678,13 +678,15 @@ const Save = props => {
         initialTabSelected = attributes.initialTabSelected,
         className = attributes.className;
   return React.createElement("section", {
-    className: `ubc-accordion-tabs js-tabs ${className ? className : ''}`,
+    className: `ubc-accordion-tabs ${className ? className : ''}`,
     "data-selected-tab": initialTabSelected
   }, React.createElement("ul", {
     className: "ubc-accordion-tabs__tab-list",
     role: "tablist"
   }, tabTitles.map((singleTitle, key) => {
+    const id = singleTitle.toLowerCase().replace(/ /g, '-');
     return React.createElement("li", {
+      id: id,
       role: "presentation",
       key: key
     }, React.createElement("a", {

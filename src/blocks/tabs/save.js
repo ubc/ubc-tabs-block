@@ -9,13 +9,14 @@ const Save = ( props ) => {
 
 	return (
 		<section
-			className={ `ubc-accordion-tabs js-tabs ${ className ? className : '' }` }
+			className={ `ubc-accordion-tabs ${ className ? className : '' }` }
 			data-selected-tab={ initialTabSelected }
 		>
 			<ul className="ubc-accordion-tabs__tab-list" role="tablist">
 				{ tabTitles.map( ( singleTitle, key ) => {
+					const id = singleTitle.toLowerCase().replace( / /g, '-' );
 					return (
-						<li role="presentation" key={ key }>
+						<li id={ id } role="presentation" key={ key }>
 							{
 								<a
 									role="tab"
