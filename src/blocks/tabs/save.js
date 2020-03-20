@@ -1,17 +1,19 @@
 /**
  * BLOCK: Call To Action
  */
-
 const { InnerBlocks } = wp.blockEditor;
 
 const Save = ( props ) => {
 	const { attributes } = props;
-	const { tabTitle, tabSelected, blockID } = attributes;
+	const { tabTitles, initialTabSelected, className } = attributes;
 
 	return (
-		<section className="accordion-tabs js-tabs">
-			<ul className="tabs-tab-list" role="tablist">
-				{ tabTitle.map( ( singleTitle, key ) => {
+		<section
+			className={ `ubc-accordion-tabs js-tabs ${ className ? className : '' }` }
+			data-selected-tab={ initialTabSelected }
+		>
+			<ul className="ubc-accordion-tabs__tab-list" role="tablist">
+				{ tabTitles.map( ( singleTitle, key ) => {
 					return (
 						<li role="presentation" key={ key }>
 							{
@@ -19,8 +21,8 @@ const Save = ( props ) => {
 									role="tab"
 									id={ `tab${ key + 1 }` }
 									aria-controls={ `section${ key + 1 } ` }
-									aria-selected={ key === tabSelected }
-									className="tabs-trigger js-tabs-trigger"
+									aria-selected={ key === initialTabSelected }
+									className="ubc-accordion-tabs__tabs-trigger js-tabs-trigger"
 									href={ `#section${ key + 1 }` }
 								>
 									{ singleTitle }
@@ -30,7 +32,7 @@ const Save = ( props ) => {
 					);
 				} ) }
 			</ul>
-			{ blockID ? <InnerBlocks.Content /> : null }
+			<InnerBlocks.Content />
 		</section>
 	);
 };

@@ -3,18 +3,14 @@
  */
 
 const attributes = {
-  blockID: {
-    type: "string",
-    default: null
-  },
-  index: {
-    type: "number",
-    default: null
-  },
-  title: {
-    type: "string",
-    default: null
-  }
+	index: {
+		type: 'number',
+		default: null,
+	},
+	title: {
+		type: 'string',
+		default: 'Tab',
+	},
 };
 
 export default attributes;

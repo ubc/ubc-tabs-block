@@ -3,17 +3,13 @@
  */
 
 const attributes = {
-	tabTitle: {
+	tabTitles: {
 		type: 'array',
-		default: [ 'title', 'title' ],
+		default: [ 'Tab1', 'Tab2' ],
 	},
-	tabSelected: {
+	initialTabSelected: {
 		type: 'number',
 		default: 0,
-	},
-	blockID: {
-		type: 'string',
-		default: null,
 	},
 };
 

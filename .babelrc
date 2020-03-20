@@ -1,0 +1,4 @@
+{
+  "plugins": ["lodash", "@babel/plugin-transform-react-jsx"],
+  "presets": [["@babel/env", { "targets": { "node": 6 } }]]
+}
