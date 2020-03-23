@@ -1,0 +1,107 @@
+.ubc-accordion-tabs__tab-list li a, .ubc-accordion-tabs__tabs-trigger {
+  background-color: #2f5d7c;
+  color: #ffffff;
+  padding: 12px 25px;
+  cursor: pointer; }
+  .ubc-accordion-tabs__tab-list li a.is-selected, .is-selected.ubc-accordion-tabs__tabs-trigger {
+    background-color: #002145; }
+  .ubc-accordion-tabs__tab-list li a:hover, .ubc-accordion-tabs__tabs-trigger:hover {
+    background-color: #002145; }
+
+.ubc-accordion-tabs.is-initialized.tabs-allowed .ubc-accordion-tabs__tabs-panel {
+  display: inherit; }
+
+.ubc-accordion-tabs__tab-list {
+  display: -webkit-box;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto; }
+  .ubc-accordion-tabs__tab-list li {
+    margin: 0;
+    -webkit-box-flex: 0;
+            flex: 0 0 auto; }
+
+.ubc-accordion-tabs__tabs-trigger {
+  border-bottom: none;
+  display: none;
+  font-weight: normal;
+  margin: 0 5px 0 1px;
+  text-decoration: none; }
+
+.ubc-accordion-tabs__tabs-panel {
+  display: block;
+  margin: 0;
+  padding: 0; }
+  .ubc-accordion-tabs__tabs-panel.is-hidden .content {
+    display: none; }
+  .ubc-accordion-tabs__tabs-panel:active, .ubc-accordion-tabs__tabs-panel:focus {
+    outline: none; }
+  .ubc-accordion-tabs__tabs-panel .content {
+    padding: 20px 0; }
+
+.ubc-accordion-tabs__accordion-trigger {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+  padding: 15px 20px;
+  background-color: #2f5d7c;
+  color: #ffffff;
+  border-bottom: 1px solid #ffffff; }
+
+.ubc-accordion-tabs__accordion-trigger-icon {
+  pointer-events: none;
+  display: inline-block;
+  float: right;
+  width: 22px;
+  height: 22px; }
+  .ubc-accordion-tabs__accordion-trigger-icon svg {
+    margin: 0; }
+
+@media (min-width: 40em) {
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__accordion-trigger,
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__tabs-panel,
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__tabs-panel.is-hidden {
+    display: none; }
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__tabs-trigger {
+    display: block; }
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__tabs-panel {
+    border-top: 2px solid #eee; }
+  .ubc-accordion-tabs.tabs-allowed .ubc-accordion-tabs__tab-list {
+    margin-bottom: -2px; } }
+
+.ubc-accordion-tabs [aria-expanded="true"] .vert {
+  display: none; }
+
+.ubc-accordion-tabs .label--open,
+.ubc-accordion-tabs .label--close {
+  display: block;
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+.ubc-accordion-tabs .label--close {
+  display: none; }
+
+.ubc-accordion-tabs .is-open .label--open {
+  display: none; }
+
+.ubc-accordion-tabs .is-open .label--close {
+  display: block; }
+
+.ubc-accordion-tabs.is-style-bordered .ubc-accordion-tabs__tab-list .ubc-accordion-tabs__tabs-trigger,
+.ubc-accordion-tabs.is-style-bordered .ubc-accordion-tabs__tab-list .ubc-accordion-tabs__button {
+  border-radius: 6px 6px 0 0; }
+
+
+/*# sourceMappingURL=frontend.css.map*/

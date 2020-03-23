@@ -1,0 +1,132 @@
+@import "../base";
+
+.ubc-accordion-tabs {
+  &.is-initialized.tabs-allowed .ubc-accordion-tabs__tabs-panel {
+    display: inherit;
+  }
+
+  &__tab-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+
+    li {
+      margin: 0;
+      flex: 0 0 auto;
+
+      a {
+        @extend %button;
+      }
+    }
+  }
+
+  &__tabs-trigger {
+    @extend %button;
+    border-bottom: none;
+    display: none;
+    font-weight: normal;
+    margin: 0 5px 0 1px;
+    text-decoration: none;
+  }
+
+  &__tabs-panel {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    &.is-hidden {
+      .content {
+        display: none;
+      }
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+
+    .content {
+      padding: 20px 0;
+    }
+  }
+  &__accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 15px 20px;
+    background-color: get-color("secondary");
+    color: get-color("white");
+    border-bottom: 1px solid get-color("white");
+  }
+  &__accordion-trigger-icon {
+    pointer-events: none;
+    display: inline-block;
+    float: right;
+    width: 22px;
+    height: 22px;
+
+    svg {
+      margin: 0;
+    }
+  }
+
+  @media (min-width: 40em) {
+    &.tabs-allowed {
+      .ubc-accordion-tabs__accordion-trigger,
+      .ubc-accordion-tabs__tabs-panel,
+      .ubc-accordion-tabs__tabs-panel.is-hidden {
+        display: none;
+      }
+    }
+    &.tabs-allowed .ubc-accordion-tabs__tabs-trigger {
+      display: block;
+    }
+    &.tabs-allowed .ubc-accordion-tabs__tabs-panel {
+      border-top: 2px solid #eee;
+    }
+    &.tabs-allowed .ubc-accordion-tabs__tab-list {
+      margin-bottom: -2px;
+    }
+  }
+
+  [aria-expanded="true"] .vert {
+    display: none;
+  }
+
+  .label--open,
+  .label--close {
+    display: block;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .label--close {
+    display: none;
+  }
+
+  .is-open .label--open {
+    display: none;
+  }
+
+  .is-open .label--close {
+    display: block;
+  }
+
+  &.is-style-bordered {
+    .ubc-accordion-tabs__tab-list {
+      .ubc-accordion-tabs__tabs-trigger,
+      .ubc-accordion-tabs__button {
+        border-radius: 6px 6px 0 0;
+      }
+    }
+  }
+}
