@@ -11,10 +11,10 @@ const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
 registerBlockType( 'ubc/tabs', {
-	title: 'UBC Tabs Block',
-	description: 'Some description',
+	title: __( 'UBC Tabs Block', 'ubc-tabs' ),
+	description: __( 'Some description', 'ubc-tabs' ),
 	icon: 'book-alt',
-	keywords: [ __( 'tabs' ), __( 'accordion' ) ],
+	keywords: [ __( 'tabs', 'ubc-tabs' ), __( 'accordion', 'ubc-tabs' ) ],
 	category: 'layout',
 	attributes,
 	edit: Edit,
@@ -22,12 +22,12 @@ registerBlockType( 'ubc/tabs', {
 	styles: [
 		{
 			name: 'default',
-			label: __( 'Default' ),
+			label: __( 'Default', 'ubc-tabs' ),
 			isDefault: true,
 		},
 		{
 			name: 'bordered',
-			label: __( 'Bordered' ),
+			label: __( 'Bordered', 'ubc-tabs' ),
 			isDefault: false,
 		},
 	],

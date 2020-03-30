@@ -106,26 +106,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (window.location.hash) {
-  var hash = window.location.hash.substring(1);
-  console.log(hash);
-  var element = document.getElementById(hash);
+  const hash = window.location.hash.substring(1);
+  let element = document.getElementById(hash);
 
   if (element) {
     let count = 0;
 
-    while ((element = element.previousSibling) != null) {
+    while ((element = element.previousSibling) !== null) {
       count++;
     }
 
-    console.log(count);
     const tabs = document.getElementsByClassName('wp-block-ubc-tabs');
-    console.log(tabs[0].dataset.selectedTab);
     tabs[0].dataset.selectedTab = count;
-    console.log(tabs[0].dataset.selectedTab);
   }
 }
 
-var tabs = document.querySelectorAll('.wp-block-ubc-tabs');
+const tabs = document.querySelectorAll('.wp-block-ubc-tabs'); // eslint-disable-next-line no-undef
+
 tabs.forEach(tab => new AccordionTabs(tab));
 
 /***/ }),

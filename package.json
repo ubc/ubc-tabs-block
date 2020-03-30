@@ -14,7 +14,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
-    "@wordpress/eslint-plugin": "^3.3.0",
+    "@wordpress/eslint-plugin": "^3.4.1",
     "@wordpress/scripts": "^5.0.1",
     "babel-plugin-lodash": "^3.3.4",
     "classnames": "^2.2.6",
