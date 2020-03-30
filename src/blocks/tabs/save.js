@@ -1,12 +1,12 @@
 /**
  * BLOCK: Call To Action
  */
+import WPSanitizeTitle from '../helper';
 const { InnerBlocks } = wp.blockEditor;
 
 const Save = ( props ) => {
 	const { attributes } = props;
 	const { tabTitles, initialTabSelected, className } = attributes;
-
 	return (
 		<section
 			className={ `ubc-accordion-tabs ${ className ? className : '' }` }
@@ -20,7 +20,7 @@ const Save = ( props ) => {
 							{
 								<a
 									role="tab"
-									id={ `tab${ key + 1 }` }
+									id={ WPSanitizeTitle( singleTitle ) }
 									aria-controls={ `section${ key + 1 } ` }
 									aria-selected={ key === initialTabSelected }
 									className="ubc-accordion-tabs__tabs-trigger js-tabs-trigger"
