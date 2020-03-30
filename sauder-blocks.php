@@ -22,6 +22,11 @@
  add_action('init', 'ubc_tab_blocks_asset_load', 10);
  add_action( 'wp_enqueue_scripts', 'ubc_tab_blocks_frontend_assets' );
 
+ /**
+  * Enqueue assets to frontend pages.
+  *
+  * @return void
+  */
  function ubc_tab_blocks_frontend_assets() {
     wp_enqueue_script(
         'ubc-tab-script-frontend',
@@ -40,6 +45,11 @@
     wp_enqueue_style( 'ubc-tab-style-frontend' );
  }
 
+ /**
+  * Regiter Tabs block and enqueue block assets.
+  *
+  * @return void
+  */
  function ubc_tab_blocks_asset_load(){
      wp_register_script(
          'ubc-tab-script-block',

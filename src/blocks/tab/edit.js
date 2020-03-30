@@ -8,6 +8,7 @@ const Edit = ( props ) => {
 	const { getBlockTypes, setAttributes, attributes } = props;
 	const { index } = attributes;
 	const { currentTabSelected, tabs, tabTitles } = useContext( TabsContext );
+	// Tab block does not allowed tabs block or tab block to be nested inside.
 	const allowedBlocks = getBlockTypes()
 		.map( ( block ) => {
 			return block.name;
@@ -16,6 +17,10 @@ const Edit = ( props ) => {
 			return blockName !== 'ubc/tabs' && blockName !== 'ubc/tab';
 		} );
 
+	/**
+	 * Reset current tab block position index and title if tab titles array from parent block changed. triggered by moveUp, moveDown, Remove actions in the parent block.
+	 * Make sure child block always know what's their correct index and title in the parent block.
+	 */
 	useEffect( () => {
 		const newIndex = tabs.findIndex( ( clientId ) => {
 			return clientId === props.clientId;

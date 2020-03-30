@@ -9,6 +9,14 @@ const { compose } = wp.compose;
 const { withDispatch, withSelect } = wp.data;
 const { useState } = wp.element;
 
+/**
+ * This component create editor UI for tabs block.
+ * A tabs block contains two parts
+ * 	- Tab title, an array of tab titles associated with attribute 'tabTitles'
+ *  - Tab content, an array of child tab block rendered by innderblock template.
+ * Tab titles and Tab content are complete seprate. For example, action such as move tab position or delete a tab will envolve actions for both tab title and tab content.
+ * @param {object} props block props.
+ */
 const Edit = ( props ) => {
 	const {
 		attributes,
@@ -20,13 +28,14 @@ const Edit = ( props ) => {
 		isSelected,
 	} = props;
 	const { tabTitles, initialTabSelected, className } = attributes;
+	// Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 	const [ currentTabSelected, setCurrentTabSelected ] = useState(
 		initialTabSelected
 	);
 	const allowedBlocks = 'ubc/tab';
 
 	/**
-	 * Render innerblocks { tab blocks } based on number of tabs exist.
+	 * Render innerblocks { tab blocks } based on the length of tab titles array.
 	 */
 	const getInnerBlockTemplates = () => {
 		return tabTitles.map( function( title, key ) {
@@ -84,15 +93,18 @@ const Edit = ( props ) => {
 				<Button
 					onClick={ ( event ) => {
 						event.preventDefault();
+						// move tab title up inside tab titles array
 						const newTabTitles = [ ...tabTitles ];
 						[ newTabTitles[ key - 1 ], newTabTitles[ key ] ] = [
 							newTabTitles[ key ],
 							newTabTitles[ key - 1 ],
 						];
-						onMoveUp( key );
 						setAttributes( {
 							tabTitles: newTabTitles,
 						} );
+						// Move the actual tab block up
+						onMoveUp( key );
+						// Move focus as well to make sure action does not cause different tab to be selected.
 						setCurrentTabSelected( key - 1 );
 					} }
 					disabled={ isFirst( key ) || tabTitles.length <= 1 }
@@ -103,15 +115,18 @@ const Edit = ( props ) => {
 				<Button
 					onClick={ ( event ) => {
 						event.preventDefault();
+						// Move tab title down inside tab titles array
 						const newTabTitles = [ ...tabTitles ];
 						[ newTabTitles[ key ], newTabTitles[ key + 1 ] ] = [
 							newTabTitles[ key + 1 ],
 							newTabTitles[ key ],
 						];
-						onMoveDown( key );
 						setAttributes( {
 							tabTitles: newTabTitles,
 						} );
+						// Move the actual tab block down
+						onMoveDown( key );
+						// Move focus as well to make sure action does not cause different tab to be selected.
 						setCurrentTabSelected( key + 1 );
 					} }
 					disabled={ isLast( key ) || tabTitles.length <= 1 }
@@ -122,17 +137,18 @@ const Edit = ( props ) => {
 				<Button
 					onClick={ ( event ) => {
 						event.preventDefault();
+						// Remove tab title from tab titles array
 						const remainingTabs = tabTitles.filter(
 							( title, index ) => key !== index
 						);
-						// Remove the innerblock for the tab
-						removeBlock( key );
-						// Remove the title for the tab
 						setAttributes( {
 							tabTitles: remainingTabs,
 						} );
+						// Remove the actual tab block
+						removeBlock( key );
 						// Set focus to the first tab of the remaining tabs
-						if ( remainingTabs.length === 0 ) {
+						if ( remainingTabs.length !== 0 ) {
+							setCurrentTabSelected( 0 );
 						}
 					} }
 				>
@@ -142,6 +158,8 @@ const Edit = ( props ) => {
 				<Button
 					onClick={ ( event ) => {
 						event.preventDefault();
+						// Add new tab is as simple as append a new string in the tab titles array.
+						// A new tab block will be automatically created because innerblock template will match the length of tab titles array.
 						setAttributes( {
 							tabTitles: [ ...tabTitles, 'Tab' ],
 						} );
@@ -231,6 +249,7 @@ export default compose( [
 	withSelect( ( select, ownProps ) => {
 		const { getBlockOrder } = select( 'core/block-editor' );
 		return {
+			// Get an array of child blocks( tab blocks ) client ID in order.
 			tabs: getBlockOrder( ownProps.clientId ),
 		};
 	} ),
@@ -239,12 +258,24 @@ export default compose( [
 			'core/block-editor'
 		);
 		return {
+			/**
+			 * Move specific tab block down, switch position with next tab block.
+			 * @param {integer} index position index in the child tab blocks array.
+			 */
 			onMoveDown( index ) {
 				moveBlocksDown( tabs[ index ], clientId );
 			},
+			/**
+			 * Move specific tab block up, switch position with previous tab block.
+			 * @param {integer} index position index in the child tab blocks array.
+			 */
 			onMoveUp( index ) {
 				moveBlocksUp( tabs[ index ], clientId );
 			},
+			/**
+			 * Remove specific tab block.
+			 * @param {integer} index position index in the child tab blocks array.
+			 */
 			removeBlock( index ) {
 				removeBlock( tabs[ index ] );
 			},

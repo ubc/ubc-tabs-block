@@ -196,13 +196,19 @@ const Edit = props => {
   const _useContext = useContext(_tabs_context__WEBPACK_IMPORTED_MODULE_0__["default"]),
         currentTabSelected = _useContext.currentTabSelected,
         tabs = _useContext.tabs,
-        tabTitles = _useContext.tabTitles;
+        tabTitles = _useContext.tabTitles; // Tab block does not allowed tabs block or tab block to be nested inside.
+
 
   const allowedBlocks = getBlockTypes().map(block => {
     return block.name;
   }).filter(blockName => {
     return blockName !== 'ubc/tabs' && blockName !== 'ubc/tab';
   });
+  /**
+   * Reset current tab block position index and title if tab titles array from parent block changed. triggered by moveUp, moveDown, Remove actions in the parent block.
+   * Make sure child block always know what's their correct index and title in the parent block.
+   */
+
   useEffect(() => {
     const newIndex = tabs.findIndex(clientId => {
       return clientId === props.clientId;
@@ -346,21 +352,21 @@ __webpack_require__.r(__webpack_exports__);
 const __ = wp.i18n.__;
 const registerBlockType = wp.blocks.registerBlockType;
 registerBlockType('ubc/tabs', {
-  title: 'UBC Tabs Block',
-  description: 'Some description',
+  title: __('UBC Tabs Block', 'ubc-tabs'),
+  description: __('Some description', 'ubc-tabs'),
   icon: 'book-alt',
-  keywords: [__('tabs'), __('accordion')],
+  keywords: [__('tabs', 'ubc-tabs'), __('accordion', 'ubc-tabs')],
   category: 'layout',
   attributes: _attributes__WEBPACK_IMPORTED_MODULE_0__["default"],
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
   save: _save__WEBPACK_IMPORTED_MODULE_2__["default"],
   styles: [{
     name: 'default',
-    label: __('Default'),
+    label: __('Default', 'ubc-tabs'),
     isDefault: true
   }, {
     name: 'bordered',
-    label: __('Bordered'),
+    label: __('Bordered', 'ubc-tabs'),
     isDefault: false
   }]
 });
@@ -418,6 +424,14 @@ const _wp$data = wp.data,
       withDispatch = _wp$data.withDispatch,
       withSelect = _wp$data.withSelect;
 const useState = wp.element.useState;
+/**
+ * This component create editor UI for tabs block.
+ * A tabs block contains two parts
+ * 	- Tab title, an array of tab titles associated with attribute 'tabTitles'
+ *  - Tab content, an array of child tab block rendered by innderblock template.
+ * Tab titles and Tab content are complete seprate. For example, action such as move tab position or delete a tab will envolve actions for both tab title and tab content.
+ * @param {object} props block props.
+ */
 
 const Edit = props => {
   const attributes = props.attributes,
@@ -429,7 +443,7 @@ const Edit = props => {
         isSelected = props.isSelected;
   const tabTitles = attributes.tabTitles,
         initialTabSelected = attributes.initialTabSelected,
-        className = attributes.className;
+        className = attributes.className; // Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 
   const _useState = useState(initialTabSelected),
         _useState2 = _slicedToArray(_useState, 2),
@@ -438,7 +452,7 @@ const Edit = props => {
 
   const allowedBlocks = 'ubc/tab';
   /**
-   * Render innerblocks { tab blocks } based on number of tabs exist.
+   * Render innerblocks { tab blocks } based on the length of tab titles array.
    */
 
   const getInnerBlockTemplates = () => {
@@ -497,15 +511,18 @@ const Edit = props => {
       className: "ubc-accordion-tabs__tab-toolbar"
     }, React.createElement(Button, {
       onClick: event => {
-        event.preventDefault();
+        event.preventDefault(); // move tab title up inside tab titles array
+
         const newTabTitles = [...tabTitles];
         var _ref = [newTabTitles[key], newTabTitles[key - 1]];
         newTabTitles[key - 1] = _ref[0];
         newTabTitles[key] = _ref[1];
-        onMoveUp(key);
         setAttributes({
           tabTitles: newTabTitles
-        });
+        }); // Move the actual tab block up
+
+        onMoveUp(key); // Move focus as well to make sure action does not cause different tab to be selected.
+
         setCurrentTabSelected(key - 1);
       },
       disabled: isFirst(key) || tabTitles.length <= 1
@@ -513,15 +530,18 @@ const Edit = props => {
       className: "dashicons dashicons-arrow-left-alt2"
     })), React.createElement(Button, {
       onClick: event => {
-        event.preventDefault();
+        event.preventDefault(); // Move tab title down inside tab titles array
+
         const newTabTitles = [...tabTitles];
         var _ref2 = [newTabTitles[key + 1], newTabTitles[key]];
         newTabTitles[key] = _ref2[0];
         newTabTitles[key + 1] = _ref2[1];
-        onMoveDown(key);
         setAttributes({
           tabTitles: newTabTitles
-        });
+        }); // Move the actual tab block down
+
+        onMoveDown(key); // Move focus as well to make sure action does not cause different tab to be selected.
+
         setCurrentTabSelected(key + 1);
       },
       disabled: isLast(key) || tabTitles.length <= 1
@@ -529,22 +549,26 @@ const Edit = props => {
       className: "dashicons dashicons-arrow-right-alt2"
     })), React.createElement(Button, {
       onClick: event => {
-        event.preventDefault();
-        const remainingTabs = tabTitles.filter((title, index) => key !== index); // Remove the innerblock for the tab
+        event.preventDefault(); // Remove tab title from tab titles array
 
-        removeBlock(key); // Remove the title for the tab
-
+        const remainingTabs = tabTitles.filter((title, index) => key !== index);
         setAttributes({
           tabTitles: remainingTabs
-        }); // Set focus to the first tab of the remaining tabs
+        }); // Remove the actual tab block
 
-        if (remainingTabs.length === 0) {}
+        removeBlock(key); // Set focus to the first tab of the remaining tabs
+
+        if (remainingTabs.length !== 0) {
+          setCurrentTabSelected(0);
+        }
       }
     }, React.createElement("span", {
       className: "dashicons dashicons-trash"
     })), React.createElement(Button, {
       onClick: event => {
-        event.preventDefault();
+        event.preventDefault(); // Add new tab is as simple as append a new string in the tab titles array.
+        // A new tab block will be automatically created because innerblock template will match the length of tab titles array.
+
         setAttributes({
           tabTitles: [...tabTitles, 'Tab']
         });
@@ -618,6 +642,7 @@ const Edit = props => {
         getBlockOrder = _select.getBlockOrder;
 
   return {
+    // Get an array of child blocks( tab blocks ) client ID in order.
     tabs: getBlockOrder(ownProps.clientId)
   };
 }), withDispatch((dispatch, {
@@ -630,14 +655,26 @@ const Edit = props => {
         moveBlocksUp = _dispatch.moveBlocksUp;
 
   return {
+    /**
+     * Move specific tab block down, switch position with next tab block.
+     * @param {integer} index position index in the child tab blocks array.
+     */
     onMoveDown(index) {
       moveBlocksDown(tabs[index], clientId);
     },
 
+    /**
+     * Move specific tab block up, switch position with previous tab block.
+     * @param {integer} index position index in the child tab blocks array.
+     */
     onMoveUp(index) {
       moveBlocksUp(tabs[index], clientId);
     },
 
+    /**
+     * Remove specific tab block.
+     * @param {integer} index position index in the child tab blocks array.
+     */
     removeBlock(index) {
       removeBlock(tabs[index]);
     }
