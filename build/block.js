@@ -727,20 +727,11 @@ registerBlockType('ubc/tabs', {
   title: __('UBC Tabs Block', 'ubc-tabs'),
   description: __('Some description', 'ubc-tabs'),
   icon: 'book-alt',
-  keywords: [__('tabs', 'ubc-tabs'), __('accordion', 'ubc-tabs')],
+  keywords: [__('tabs'), __('ubc-tabs')],
   category: 'layout',
   attributes: _attributes__WEBPACK_IMPORTED_MODULE_0__["default"],
   edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
-  save: _save__WEBPACK_IMPORTED_MODULE_2__["default"],
-  styles: [{
-    name: 'default',
-    label: __('Default', 'ubc-tabs'),
-    isDefault: true
-  }, {
-    name: 'bordered',
-    label: __('Bordered', 'ubc-tabs'),
-    isDefault: false
-  }]
+  save: _save__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 
 /***/ }),
