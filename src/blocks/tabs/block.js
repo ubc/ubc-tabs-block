@@ -14,21 +14,9 @@ registerBlockType( 'ubc/tabs', {
 	title: __( 'UBC Tabs Block', 'ubc-tabs' ),
 	description: __( 'Some description', 'ubc-tabs' ),
 	icon: 'book-alt',
-	keywords: [ __( 'tabs', 'ubc-tabs' ), __( 'accordion', 'ubc-tabs' ) ],
+	keywords: [ __( 'tabs' ), __( 'ubc-tabs' ) ],
 	category: 'layout',
 	attributes,
 	edit: Edit,
 	save: Save,
-	styles: [
-		{
-			name: 'default',
-			label: __( 'Default', 'ubc-tabs' ),
-			isDefault: true,
-		},
-		{
-			name: 'bordered',
-			label: __( 'Bordered', 'ubc-tabs' ),
-			isDefault: false,
-		},
-	],
 } );
