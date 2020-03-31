@@ -188,7 +188,7 @@ const Edit = ( props ) => {
 								aria-selected={ key === currentTabSelected }
 								href={ `#section${ key + 1 }` }
 								className={ `ubc-accordion-tabs__button${
-									key === currentTabSelected ? ' is-active' : ''
+									key === currentTabSelected ? ' is-selected' : ''
 								}` }
 								onClick={ ( event ) => {
 									event.preventDefault();

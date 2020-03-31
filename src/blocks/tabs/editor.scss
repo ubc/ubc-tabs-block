@@ -11,43 +11,56 @@
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    margin: 0 !important;
+    // Avoid editor style override it
+    margin: 0 0 -2px 0 !important;
     padding-top: 50px !important;
-    margin-bottom: 30px !important;
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
+
+    button[role=tab] {
+      opacity: 1;
+      border-right: none;
+    }
   }
 
   &__tab-toolbar {
     position: absolute;
-    top: 35px;
+    top: 40px;
     left: 0;
     transform: translateY(-100%);
     display: flex;
+
     button {
       padding: 5px;
       color: get-color("white");
-      background-color: get-color("red");
+      background-color: get-color("primary");
 
+      // The first two buttons ( Previous arrow and next arrow should not have space between them because they are related )
+      &:nth-child( n + 2 ) {
+        margin-right: 5px;
+      }
+      
       &.disabled {
         color: get-color("gray");
       }
       &:focus {
-        background-color: get-color("red") !important;
+        background-color: get-color("primary") !important;
         color: get-color("white") !important;
         box-shadow: none !important;
         outline: none !important;
       }
       &:hover {
-        background-color: darken(get-color("red"), 10%);
+        background-color: darken(get-color("primary"), 10%);
       }
-    }
-  }
 
-  &__button {
-    @extend %button;
-    margin: 0 5px 0 1px;
+      .dashicons{
+        width: 25px;
+        height: 25px;
 
-    &.is-active {
-      background-color: get-color("primary");
+        &::before{
+          font-size: 25px;
+        }
+      }
     }
   }
 }

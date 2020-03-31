@@ -6,29 +6,60 @@
   }
 
   &__tab-list {
-    display: flex;
+    display: none;
     list-style: none;
     margin: 0;
     padding: 0;
     overflow: auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
 
     li {
       margin: 0;
       flex: 0 0 auto;
 
-      a {
-        @extend %button;
+      &:last-of-type{
+        a[role=tab], button[role=tab] {
+          border-right-style: solid;
+        }
+      }
+
+      a[role=tab], button[role=tab] {
+        position: relative;
+        background-color: var(--ubc-tabs-block-tab-nav-background-color, get-color("white"));
+        color: var(--ubc-tabs-block-tab-nav-text-color, get-color("primary"));
+        padding: 12px 25px;
+        opacity: 0.5;
+        border-width: 2px;
+        border-color: var(--ubc-tabs-block-tab-nav-border-color, get-color("border"));
+        border-left-style: solid;
+        text-decoration: none !important;
+        line-height: 1.8;
+      
+        &.is-selected {
+          background-color: var(--ubc-tabs-block-tab-nav-selected-background-color, get-color("white"));
+          color: var(--ubc-tabs-block-tab-nav-selected-text-color, get-color("primary"));
+          opacity: 1;
+        }
+
+        &:focus{
+          outline: none;
+        }
+
+        &::before{
+          content: "";
+          display: block;
+          height: var(--ubc-tabs-block-tab-nav-top-border-height, 5px);
+          position: absolute;
+          transition: 0.1s ease-in-out;
+          background-color: var(--ubc-tabs-block-tab-nav-top-border-color, get-color("primary"));
+          left: -2px;
+          right: -2px;
+          top: -2px;
+        }
+
       }
     }
-  }
-
-  &__tabs-trigger {
-    @extend %button;
-    border-bottom: none;
-    display: none;
-    font-weight: normal;
-    margin: 0 5px 0 1px;
-    text-decoration: none;
   }
 
   &__tabs-panel {
@@ -48,7 +79,10 @@
     }
 
     .content {
-      padding: 20px 0;
+      padding: 1.25rem;
+      border-width: 2px;
+      border-style: solid;
+      border-color: var(--ubc-tabs-block-content-border-color, get-color('border'));
     }
   }
   &__accordion-trigger {
@@ -57,9 +91,8 @@
     justify-content: space-between;
     cursor: pointer;
     padding: 15px 20px;
-    background-color: get-color("secondary");
-    color: get-color("white");
-    border-bottom: 1px solid get-color("white");
+    background-color: var(--ubc-tabs-block-accordion-trigger-background-color, get-color('primary'));
+    color: var(--ubc-tabs-block-accordion-trigger-text-color, get-color('white'));
   }
   &__accordion-trigger-icon {
     pointer-events: none;
@@ -73,7 +106,7 @@
     }
   }
 
-  @media (min-width: 40em) {
+  @media (min-width: 768px) {
     &.tabs-allowed {
       .ubc-accordion-tabs__accordion-trigger,
       .ubc-accordion-tabs__tabs-panel,
@@ -84,11 +117,18 @@
     &.tabs-allowed .ubc-accordion-tabs__tabs-trigger {
       display: block;
     }
-    &.tabs-allowed .ubc-accordion-tabs__tabs-panel {
-      border-top: 2px solid #eee;
-    }
     &.tabs-allowed .ubc-accordion-tabs__tab-list {
       margin-bottom: -2px;
+      display: flex;
+    }
+  }
+
+  // Since is-hidden class is too board, a lot of themes or css libraries out there would simply hide it with display: none !important;
+  // However, we need it to be display: block in tablet and mobile.
+  // Could suggest to 'a11y-accordion-tabs' package author to adjust css class to avoid this issue
+  @media (max-width: 767px) {
+    .ubc-accordion-tabs__tabs-panel.is-hidden{
+      display: block !important;
     }
   }
 
@@ -119,14 +159,5 @@
 
   .is-open .label--close {
     display: block;
-  }
-
-  &.is-style-bordered {
-    .ubc-accordion-tabs__tab-list {
-      .ubc-accordion-tabs__tabs-trigger,
-      .ubc-accordion-tabs__button {
-        border-radius: 6px 6px 0 0;
-      }
-    }
   }
 }
