@@ -151,8 +151,6 @@
     background-color: #0075af; }
     .ubc-accordion-tabs__tab-toolbar button:nth-child(n + 2) {
       margin-right: 5px; }
-    .ubc-accordion-tabs__tab-toolbar button.disabled {
-      color: #ababab; }
     .ubc-accordion-tabs__tab-toolbar button:focus {
       background-color: #0075af !important;
       color: #ffffff !important;
