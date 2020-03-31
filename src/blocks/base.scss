@@ -1,7 +1,6 @@
 $ubc-color: (
-  "primary": #002145,
-  "secondary": #2f5d7c,
-  "border": #d7e0e7,
+  "primary": #0075af,
+  "border": #d8d8d8,
   "white": #ffffff,
   "gray": #ababab,
   "red": #e20000
@@ -9,18 +8,4 @@ $ubc-color: (
 
 @function get-color($color) {
   @return map-get($ubc-color, $color);
-}
-
-%button {
-  background-color: get-color("secondary");
-  color: get-color("white");
-  padding: 12px 25px;
-  cursor: pointer;
-
-  &.is-selected {
-    background-color: get-color("primary");
-  }
-  &:hover {
-    background-color: get-color("primary");
-  }
 }
