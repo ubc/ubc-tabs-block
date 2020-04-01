@@ -11,8 +11,6 @@
     margin: 0;
     padding: 0;
     overflow: auto;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
 
     li {
       margin: 0;
@@ -28,7 +26,7 @@
         position: relative;
         background: var(--ubc-tabs-block-tab-nav-background, get-color("white"));
         color: var(--ubc-tabs-block-tab-nav-text-color, get-color("primary"));
-        padding: 12px 25px;
+        padding: .5rem 1rem;
         opacity: 0.5;
         border-width: 2px;
         border-color: var(--ubc-tabs-block-tab-nav-border-color, get-color("border"));
