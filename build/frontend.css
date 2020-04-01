@@ -17,7 +17,7 @@
       border-right-style: solid; }
     .ubc-accordion-tabs__tab-list li a[role=tab], .ubc-accordion-tabs__tab-list li button[role=tab] {
       position: relative;
-      background-color: var(--ubc-tabs-block-tab-nav-background-color, #ffffff);
+      background: var(--ubc-tabs-block-tab-nav-background, #ffffff);
       color: var(--ubc-tabs-block-tab-nav-text-color, #0075af);
       padding: 12px 25px;
       opacity: 0.5;
@@ -27,7 +27,7 @@
       text-decoration: none !important;
       line-height: 1.8; }
       .ubc-accordion-tabs__tab-list li a[role=tab].is-selected, .ubc-accordion-tabs__tab-list li button[role=tab].is-selected {
-        background-color: var(--ubc-tabs-block-tab-nav-selected-background-color, #ffffff);
+        background: var(--ubc-tabs-block-tab-nav-selected-background, #ffffff);
         color: var(--ubc-tabs-block-tab-nav-selected-text-color, #0075af);
         opacity: 1; }
       .ubc-accordion-tabs__tab-list li a[role=tab]:focus, .ubc-accordion-tabs__tab-list li button[role=tab]:focus {
@@ -39,7 +39,7 @@
         position: absolute;
         -webkit-transition: 0.1s ease-in-out;
         transition: 0.1s ease-in-out;
-        background-color: var(--ubc-tabs-block-tab-nav-top-border-color, #0075af);
+        background: var(--ubc-tabs-block-tab-nav-top-border-background, #0075af);
         left: -2px;
         right: -2px;
         top: -2px; }
@@ -51,10 +51,10 @@
   .ubc-accordion-tabs__tabs-panel.is-hidden .content {
     display: none; }
   .ubc-accordion-tabs__tabs-panel.is-hidden .ubc-accordion-tabs__accordion-trigger {
-    background-color: var(--ubc-tabs-block-accordion-trigger-background-color, #00537c);
+    background: var(--ubc-tabs-block-accordion-trigger-background, #00537c);
     color: var(--ubc-tabs-block-accordion-trigger-text-color, #ffffff); }
   .ubc-accordion-tabs__tabs-panel.is-open .ubc-accordion-tabs__accordion-trigger {
-    background-color: var(--ubc-tabs-block-accordion-trigger-selected-background-color, #0075af);
+    background: var(--ubc-tabs-block-accordion-trigger-selected-background, #0075af);
     color: var(--ubc-tabs-block-accordion-trigger-selected-text-color, #ffffff); }
   .ubc-accordion-tabs__tabs-panel:active, .ubc-accordion-tabs__tabs-panel:focus {
     outline: none; }
