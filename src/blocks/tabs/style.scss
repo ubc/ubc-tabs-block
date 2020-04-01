@@ -11,8 +11,6 @@
     margin: 0;
     padding: 0;
     overflow: auto;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
 
     li {
       margin: 0;
@@ -26,9 +24,9 @@
 
       a[role=tab], button[role=tab] {
         position: relative;
-        background-color: var(--ubc-tabs-block-tab-nav-background-color, get-color("white"));
+        background: var(--ubc-tabs-block-tab-nav-background, get-color("white"));
         color: var(--ubc-tabs-block-tab-nav-text-color, get-color("primary"));
-        padding: 12px 25px;
+        padding: .5rem 1rem;
         opacity: 0.5;
         border-width: 2px;
         border-color: var(--ubc-tabs-block-tab-nav-border-color, get-color("border"));
@@ -37,7 +35,7 @@
         line-height: 1.8;
       
         &.is-selected {
-          background-color: var(--ubc-tabs-block-tab-nav-selected-background-color, get-color("white"));
+          background: var(--ubc-tabs-block-tab-nav-selected-background, get-color("white"));
           color: var(--ubc-tabs-block-tab-nav-selected-text-color, get-color("primary"));
           opacity: 1;
         }
@@ -52,7 +50,7 @@
           height: var(--ubc-tabs-block-tab-nav-top-border-height, 5px);
           position: absolute;
           transition: 0.1s ease-in-out;
-          background-color: var(--ubc-tabs-block-tab-nav-top-border-color, get-color("primary"));
+          background: var(--ubc-tabs-block-tab-nav-top-border-background, get-color("primary"));
           left: -2px;
           right: -2px;
           top: -2px;
@@ -73,14 +71,14 @@
       }
 
       .ubc-accordion-tabs__accordion-trigger{
-        background-color: var(--ubc-tabs-block-accordion-trigger-background-color, darken( get-color('primary'), 10% ));
+        background: var(--ubc-tabs-block-accordion-trigger-background, darken( get-color('primary'), 10% ));
         color: var(--ubc-tabs-block-accordion-trigger-text-color, get-color('white'));
       }
     }
 
     &.is-open {
       .ubc-accordion-tabs__accordion-trigger{
-        background-color: var(--ubc-tabs-block-accordion-trigger-selected-background-color, get-color('primary'));
+        background: var(--ubc-tabs-block-accordion-trigger-selected-background, get-color('primary'));
         color: var(--ubc-tabs-block-accordion-trigger-selected-text-color, get-color('white'));
       }
     }
