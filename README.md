@@ -16,3 +16,7 @@ An accessible, tabs block for the WordPress content editor
 12. --ubc-tabs-block-accordion-trigger-text-color                   - default is #fff
 13. --ubc-tabs-block-accordion-trigger-selected-background          - default is #0075af
 14. --ubc-tabs-block-accordion-trigger-selected-text-color          - default is #fff
+
+
+## Attribution
+Block Icons created by PICOL at https://www.iconfinder.com/icons/103718/tab_icon
