@@ -30,7 +30,7 @@ const Edit = ( props ) => {
 	const { tabTitles, initialTabSelected, className } = attributes;
 	// Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 	const [ currentTabSelected, setCurrentTabSelected ] = useState(
-		initialTabSelected
+		initialTabSelected ? initialTabSelected : 0
 	);
 	const allowedBlocks = 'ubc/tab';
 
