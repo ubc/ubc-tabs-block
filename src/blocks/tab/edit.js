@@ -34,7 +34,7 @@ const Edit = ( props ) => {
 				index: newIndex,
 			} );
 		}
-	}, [ tabTitles ] );
+	}, [ tabTitles, tabs, props.clientId ] );
 
 	return currentTabSelected === index ? (
 		<section
