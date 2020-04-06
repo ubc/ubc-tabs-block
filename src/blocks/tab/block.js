@@ -13,7 +13,7 @@ const { registerBlockType } = wp.blocks;
 registerBlockType( 'ubc/tab', {
 	parent: [ 'ubc/tabs' ],
 	title: 'UBC Tab Block',
-	description: 'Some description',
+	description: __( 'Add accessible tabs of content which convert to accordions on smaller screens.' ),
 	icon: 'book-alt',
 	keywords: [ __( 'tab' ), __( 'accordion' ) ],
 	category: 'layout',

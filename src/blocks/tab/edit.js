@@ -45,7 +45,13 @@ const Edit = ( props ) => {
 			aria-labelledby={ `tab${ index + 1 }` }
 		>
 			<div className="content is-open" aria-hidden>
-				<InnerBlocks templateLock={ false } allowedBlocks={ allowedBlocks } />
+				<InnerBlocks
+					templateLock={ false }
+					allowedBlocks={ allowedBlocks }
+					renderAppender={ () => (
+						<InnerBlocks.ButtonBlockAppender />
+					) }
+				/>
 			</div>
 		</section>
 	) : null;
