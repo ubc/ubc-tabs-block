@@ -26,13 +26,15 @@ const Edit = ( props ) => {
 		onMoveDown,
 		tabs,
 		isSelected,
+		rootId,
+		insertBlock,
 	} = props;
 	const { tabTitles, initialTabSelected, className } = attributes;
 	// Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 	const [ currentTabSelected, setCurrentTabSelected ] = useState(
 		initialTabSelected ? initialTabSelected : 0
 	);
-	const allowedBlocks = 'ubc/tab';
+	const allowedBlocks = [ 'ubc/tab' ];
 
 	/**
 	 * Render innerblocks { tab blocks } based on the length of tab titles array.
@@ -156,10 +158,17 @@ const Edit = ( props ) => {
 				</Button>
 
 				<Button
-					onClick={ ( event ) => {
+					onClick={ async ( event ) => {
 						event.preventDefault();
-						// Add new tab is as simple as append a new string in the tab titles array.
-						// A new tab block will be automatically created because innerblock template will match the length of tab titles array.
+
+						// Create the tab block and insert at the end of the root block.
+						await insertBlock(
+							wp.blocks.createBlock( 'ubc/tab', { index: tabs.length } ),
+							tabs.length,
+							rootId
+						);
+
+						// Add a new title into the title array.
 						setAttributes( {
 							tabTitles: [ ...tabTitles, 'Tab' ],
 						} );
@@ -213,8 +222,9 @@ const Edit = ( props ) => {
 			>
 				<InnerBlocks
 					template={ getInnerBlockTemplates() }
-					templateLock={ 'all' }
+					templateLock={ false }
 					allowedBlocks={ allowedBlocks }
+					renderAppender={ false }
 				/>
 			</TabsContext.Provider>
 			<InspectorControls>
@@ -251,10 +261,11 @@ export default compose( [
 		return {
 			// Get an array of child blocks( tab blocks ) client ID in order.
 			tabs: getBlockOrder( ownProps.clientId ),
+			rootId: ownProps.clientId,
 		};
 	} ),
 	withDispatch( ( dispatch, { tabs, clientId } ) => {
-		const { removeBlock, moveBlocksDown, moveBlocksUp } = dispatch(
+		const { removeBlock, moveBlocksDown, moveBlocksUp, insertBlock } = dispatch(
 			'core/block-editor'
 		);
 		return {
@@ -263,14 +274,14 @@ export default compose( [
 			 * @param {integer} index position index in the child tab blocks array.
 			 */
 			onMoveDown( index ) {
-				moveBlocksDown( tabs[ index ], clientId );
+				moveBlocksDown( [ tabs[ index ] ], clientId );
 			},
 			/**
 			 * Move specific tab block up, switch position with previous tab block.
 			 * @param {integer} index position index in the child tab blocks array.
 			 */
 			onMoveUp( index ) {
-				moveBlocksUp( tabs[ index ], clientId );
+				moveBlocksUp( [ tabs[ index ] ], clientId );
 			},
 			/**
 			 * Remove specific tab block.
@@ -279,6 +290,7 @@ export default compose( [
 			removeBlock( index ) {
 				removeBlock( tabs[ index ] );
 			},
+			insertBlock,
 		};
 	} ),
 ] )( Edit );
