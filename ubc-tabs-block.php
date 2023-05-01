@@ -79,3 +79,18 @@
     ) );
  }
 
+ /**
+  * Workaround to acommondate the deprecated change in A11y-accordion-tabs JavaScript library.
+  * So that the tabs will continue to work in the frontend without the need for administrators to re-save it manually in the editor.
+  * https://github.com/matthiasott/a11y-accordion-tabs/commit/f44bb27e2adda00e3ed72058472a1378bdd3fc05
+  */
+ function apply_a11y_accordion_tabs_typo( $block_content, $block ) {
+
+	if ( $block['blockName'] !== 'ubc/tab' && $block['blockName'] !== 'ubc/tabs' ) {
+		return $block_content;
+	}
+
+    return str_replace( 'accordeon', 'accordion', $block_content );;
+
+}
+add_filter( 'render_block', 'apply_a11y_accordion_tabs_typo', 10, 2 );
