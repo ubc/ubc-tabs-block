@@ -1,1 +1,562 @@
-!function(t){var e={};function s(i){if(e[i])return e[i].exports;var r=e[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,s),r.l=!0,r.exports}s.m=t,s.c=e,s.d=function(t,e,i){s.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:i})},s.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},s.t=function(t,e){if(1&e&&(t=s(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(s.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)s.d(i,r,function(e){return t[e]}.bind(null,r));return i},s.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return s.d(e,"a",e),e},s.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},s.p="",s(s.s=112)}({112:function(t,e,s){"use strict";s.r(e);s(113),s(114);if(window.location.hash){const t=window.location.hash.substring(1);let e=document.getElementById(t);if(e){let t=0;for(;null!==(e=e.previousSibling);)t++;document.getElementsByClassName("wp-block-ubc-tabs")[0].dataset.selectedTab=t}}document.querySelectorAll(".wp-block-ubc-tabs").forEach(t=>new AccordionTabs(t))},113:function(t,e,s){},114:function(t,e,s){!function(){"use strict";function e(t,e){t&&(this.el=t,this.tabTriggers=this.el.querySelector(":scope > ul").getElementsByClassName("js-tabs-trigger"),this.tabPanels=this.el.querySelectorAll(":scope > .js-tabs-panel"),this.accordionTriggers=this.el.querySelectorAll(":scope > .js-tabs-panel > .js-accordion-trigger"),this.options=this._extend({breakpoint:640,tabsAllowed:!0,selectedTab:0,startCollapsed:!1},e),"true"==t.getAttribute("data-tabs-allowed")?this.options.tabsAllowed=!0:"false"==t.getAttribute("data-tabs-allowed")&&(this.options.tabsAllowed=!1),t.getAttribute("data-breakpoint")&&(this.options.breakpoint=parseInt(t.getAttribute("data-breakpoint"))),t.getAttribute("data-selected-tab")&&(this.options.selectedTab=parseInt(t.getAttribute("data-selected-tab"))),"true"==t.getAttribute("data-start-collapsed")?this.options.startCollapsed=!0:"false"==t.getAttribute("data-start-collapsed")&&(this.options.startCollapsed=!1),0!==this.tabTriggers.length&&this.tabTriggers.length===this.tabPanels.length&&this._init())}e.prototype._init=function(){var t=this;this.tabTriggersLength=this.tabTriggers.length,this.accordionTriggersLength=this.accordionTriggers.length,this.selectedTab=0,this.prevSelectedTab=null,this.clickListener=this._clickEvent.bind(this),this.keydownListener=this._keydownEvent.bind(this),this.keys={prev:37,next:39,space:32,enter:13},window.innerWidth>=this.options.breakpoint&&this.options.tabsAllowed?this.isAccordion=!1:this.isAccordion=!0;for(var e=0;e<this.tabTriggersLength;e++)this.tabTriggers[e].index=e,this.tabTriggers[e].addEventListener("click",this.clickListener,!1),this.tabTriggers[e].addEventListener("keydown",this.keydownListener,!1),this.tabTriggers[e].classList.contains("is-selected")&&(this.selectedTab=e),this._hide(e);for(e=0;e<this.accordionTriggersLength;e++)this.accordionTriggers[e].index=e,this.accordionTriggers[e].addEventListener("click",this.clickListener,!1),this.accordionTriggers[e].addEventListener("keydown",this.keydownListener,!1),this.accordionTriggers[e].classList.contains("is-selected")&&(this.selectedTab=e);isNaN(this.options.selectedTab)||(this.selectedTab=this.options.selectedTab<this.tabTriggersLength?this.options.selectedTab:this.tabTriggersLength-1),this.el.classList.add("is-initialized"),this.options.tabsAllowed&&this.el.classList.add("tabs-allowed"),this.options.startCollapsed&&this.isAccordion||this.selectTab(this.selectedTab,!1);var s=this._debounce((function(){window.innerWidth>=t.options.breakpoint&&t.options.tabsAllowed?(t.isAccordion=!1,t.options.tabsAllowed&&t.el.classList.add("tabs-allowed"),t.selectTab(t.selectedTab)):(t.isAccordion=!0,t.el.classList.remove("tabs-allowed"),t.options.startCollapsed||t.selectTab(t.selectedTab))}),50);window.addEventListener("resize",s)},e.prototype._clickEvent=function(t){t.preventDefault();var e=this._getClosest(t.target,".js-tabs-trigger"),s=0;null==e?(e=this._getClosest(t.target,".js-accordion-trigger"),s=this._getClosest(e,".js-tabs-panel"),this.isAccordion=!0):this.isAccordion=!1;var i=null!=t.target.index?t.target.index:s.index;(i!==this.selectedTab||this.isAccordion)&&this.selectTab(i,!0)},e.prototype._keydownEvent=function(t){var e;if(t.keyCode===this.keys.prev||t.keyCode===this.keys.next||t.keyCode===this.keys.space||t.keyCode===this.keys.enter){if(t.preventDefault(),t.keyCode===this.keys.prev&&t.target.index>0&&!this.isAccordion)e=t.target.index-1;else if(t.keyCode===this.keys.next&&t.target.index<this.tabTriggersLength-1&&!this.isAccordion)e=t.target.index+1;else{if(t.keyCode!==this.keys.space&&t.keyCode!==this.keys.enter)return;e=t.target.index}this.selectTab(e,!0)}},e.prototype._show=function(t,e){this.tabPanels[t].removeAttribute("tabindex"),this.tabTriggers[t].removeAttribute("tabindex"),this.tabTriggers[t].classList.add("is-selected"),this.tabTriggers[t].setAttribute("aria-selected",!0),this.accordionTriggers[t].setAttribute("aria-expanded",!0);var s=this.tabPanels[t].getElementsByClassName("content")[0];s.setAttribute("aria-hidden",!1),s.classList.remove("is-hidden"),s.classList.add("is-open"),this.tabPanels[t].classList.remove("is-hidden"),this.tabPanels[t].classList.add("is-open"),e&&this.tabTriggers[t].focus()},e.prototype._hide=function(t){this.tabTriggers[t].classList.remove("is-selected"),this.tabTriggers[t].setAttribute("aria-selected",!1),this.tabTriggers[t].setAttribute("tabindex",-1),this.accordionTriggers[t].setAttribute("aria-expanded",!1);var e=this.tabPanels[t].getElementsByClassName("content")[0];e.setAttribute("aria-hidden",!0),e.classList.remove("is-open"),e.classList.add("is-hidden"),this.tabPanels[t].classList.remove("is-open"),this.tabPanels[t].classList.add("is-hidden"),this.tabPanels[t].setAttribute("tabindex",-1)},e.prototype.selectTab=function(t,e){if(null===t){if(this.isAccordion)return;t=0}if(!this.tabPanels[t].classList.contains("is-hidden")&&e)return t===this.selectedTab?this.selectedTab=null:(this.selectedTab=null,this.prevSelectedTab=t),void this._hide(t);if(this.isAccordion)this.prevSelectedTab=this.selectedTab,this.selectedTab=t;else{if(null!==this.prevSelectedTab&&this.isAccordion)this._hide(this.selectedTab);else for(var s=0;s<this.tabTriggersLength;s++)s!==t&&this._hide(s);this.prevSelectedTab=this.selectedTab,this.selectedTab=t}this._show(this.selectedTab,e)},e.prototype.destroy=function(){for(var t=0;t<this.tabTriggersLength;t++)this.tabTriggers[t].classList.remove("is-selected"),this.tabTriggers[t].removeAttribute("aria-selected"),this.tabTriggers[t].removeAttribute("tabindex"),this.tabPanels[t].classList.remove("is-hidden"),this.tabPanels[t].removeAttribute("aria-hidden"),this.tabPanels[t].removeAttribute("tabindex"),this.tabTriggers[t].removeEventListener("click",this.clickListener,!1),this.tabTriggers[t].removeEventListener("keydown",this.keydownListener,!1),delete this.tabTriggers[t].index;this.el.classList.remove("is-initialized")},e.prototype._getClosest=function(t,e){for(Element.prototype.matches||(Element.prototype.matches=Element.prototype.matchesSelector||Element.prototype.mozMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.oMatchesSelector||Element.prototype.webkitMatchesSelector||function(t){for(var e=(this.document||this.ownerDocument).querySelectorAll(t),s=e.length;--s>=0&&e.item(s)!==this;);return s>-1});t&&t!==document;t=t.parentNode)if(t.matches(e))return t;return null},e.prototype._extend=function(){var t={},e=!1,s=0,i=arguments.length;"[object Boolean]"===Object.prototype.toString.call(arguments[0])&&(e=arguments[0],s++);for(var r=function(s){for(var i in s)Object.prototype.hasOwnProperty.call(s,i)&&(e&&"[object Object]"===Object.prototype.toString.call(s[i])?t[i]=extend(!0,t[i],s[i]):t[i]=s[i])};s<i;s++){var n=arguments[s];r(n)}return t},e.prototype._debounce=function(t,e,s){var i;return function(){var r=this,n=arguments,o=function(){i=null,s||t.apply(r,n)},a=s&&!i;clearTimeout(i),i=setTimeout(o,e),a&&t.apply(r,n)}};var s=Array.prototype.slice;function i(){var t,i;(t=".js-tabs",s.call((i||document).querySelectorAll(t))).forEach((function(t){new e(t)}))}"undefined"!=typeof Document&&("loading"!==document.readyState?i():document.addEventListener("DOMContentLoaded",i)),"undefined"!=typeof self&&(self.AccordionTabs=e),t.exports&&(t.exports=e)}()}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./frontend.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./a11y-accordion-tabs/a11y-accordion-tabs.js":
+/*!****************************************************!*\
+  !*** ./a11y-accordion-tabs/a11y-accordion-tabs.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+*  Accessible AccordionTabs, by Matthias Ott (@m_ott)
+*
+*  Based on the work of @stowball (https://codepen.io/stowball/pen/xVWwWe)
+*
+*/
+(function () {
+  'use strict';
+
+  function AccordionTabs(el, options) {
+    if (!el) {
+      return;
+    }
+
+    this.el = el;
+    this.tabTriggers = this.el.querySelector(':scope > ul').getElementsByClassName('js-tabs-trigger');
+    this.tabPanels = this.el.querySelectorAll(':scope > .js-tabs-panel');
+    this.accordionTriggers = this.el.querySelectorAll(':scope > .js-tabs-panel > .js-accordion-trigger');
+    this.options = this._extend({
+      breakpoint: 640,
+      tabsAllowed: true,
+      selectedTab: 0,
+      startCollapsed: false
+    }, options);
+
+    if (el.getAttribute('data-tabs-allowed') == "true") {
+      this.options.tabsAllowed = true;
+    } else if (el.getAttribute('data-tabs-allowed') == "false") {
+      this.options.tabsAllowed = false;
+    }
+
+    if (el.getAttribute('data-breakpoint')) {
+      this.options.breakpoint = parseInt(el.getAttribute('data-breakpoint'));
+    }
+
+    if (el.getAttribute('data-selected-tab')) {
+      this.options.selectedTab = parseInt(el.getAttribute('data-selected-tab'));
+    }
+
+    if (el.getAttribute('data-start-collapsed') == "true") {
+      this.options.startCollapsed = true;
+    } else if (el.getAttribute('data-start-collapsed') == "false") {
+      this.options.startCollapsed = false;
+    }
+
+    if (this.tabTriggers.length === 0 || this.tabTriggers.length !== this.tabPanels.length) {
+      return;
+    }
+
+    this._init();
+  }
+
+  AccordionTabs.prototype._init = function () {
+    var _this = this;
+
+    this.tabTriggersLength = this.tabTriggers.length;
+    this.accordionTriggersLength = this.accordionTriggers.length;
+    this.selectedTab = 0;
+    this.prevSelectedTab = null;
+    this.clickListener = this._clickEvent.bind(this);
+    this.keydownListener = this._keydownEvent.bind(this);
+    this.keys = {
+      prev: 37,
+      next: 39,
+      space: 32,
+      enter: 13
+    };
+
+    if (window.innerWidth >= this.options.breakpoint && this.options.tabsAllowed) {
+      this.isAccordion = false;
+    } else {
+      this.isAccordion = true;
+    }
+
+    for (var i = 0; i < this.tabTriggersLength; i++) {
+      this.tabTriggers[i].index = i;
+      this.tabTriggers[i].addEventListener('click', this.clickListener, false);
+      this.tabTriggers[i].addEventListener('keydown', this.keydownListener, false);
+
+      if (this.tabTriggers[i].classList.contains('is-selected')) {
+        this.selectedTab = i;
+      }
+
+      this._hide(i);
+    }
+
+    for (var i = 0; i < this.accordionTriggersLength; i++) {
+      this.accordionTriggers[i].index = i;
+      this.accordionTriggers[i].addEventListener('click', this.clickListener, false);
+      this.accordionTriggers[i].addEventListener('keydown', this.keydownListener, false);
+
+      if (this.accordionTriggers[i].classList.contains('is-selected')) {
+        this.selectedTab = i;
+      }
+    }
+
+    if (!isNaN(this.options.selectedTab)) {
+      this.selectedTab = this.options.selectedTab < this.tabTriggersLength ? this.options.selectedTab : this.tabTriggersLength - 1;
+    }
+
+    this.el.classList.add('is-initialized');
+
+    if (this.options.tabsAllowed) {
+      this.el.classList.add('tabs-allowed');
+    } // If the accordion should not start collapsed, open the first element
+
+
+    if (!this.options.startCollapsed || !this.isAccordion) {
+      this.selectTab(this.selectedTab, false);
+    }
+
+    var resizeTabs = this._debounce(function () {
+      // This gets delayed for performance reasons
+      if (window.innerWidth >= _this.options.breakpoint && _this.options.tabsAllowed) {
+        _this.isAccordion = false;
+
+        if (_this.options.tabsAllowed) {
+          _this.el.classList.add('tabs-allowed');
+        }
+
+        _this.selectTab(_this.selectedTab);
+      } else {
+        _this.isAccordion = true;
+
+        _this.el.classList.remove('tabs-allowed');
+
+        if (!_this.options.startCollapsed) {
+          _this.selectTab(_this.selectedTab);
+        }
+      }
+    }, 50);
+
+    window.addEventListener('resize', resizeTabs);
+  };
+
+  AccordionTabs.prototype._clickEvent = function (e) {
+    e.preventDefault();
+
+    var closestTrigger = this._getClosest(e.target, '.js-tabs-trigger');
+
+    var closestTab = 0;
+
+    if (closestTrigger == null) {
+      closestTrigger = this._getClosest(e.target, '.js-accordion-trigger');
+      closestTab = this._getClosest(closestTrigger, '.js-tabs-panel');
+      this.isAccordion = true;
+    } else {
+      this.isAccordion = false;
+    }
+
+    var targetIndex = e.target.index != null ? e.target.index : closestTab.index;
+
+    if (targetIndex === this.selectedTab && !this.isAccordion) {
+      return;
+    }
+
+    this.selectTab(targetIndex, true);
+  };
+
+  AccordionTabs.prototype._keydownEvent = function (e) {
+    var targetIndex;
+
+    if (e.keyCode === this.keys.prev || e.keyCode === this.keys.next || e.keyCode === this.keys.space || e.keyCode === this.keys.enter) {
+      e.preventDefault();
+    } else {
+      return;
+    }
+
+    if (e.keyCode === this.keys.prev && e.target.index > 0 && !this.isAccordion) {
+      targetIndex = e.target.index - 1;
+    } else if (e.keyCode === this.keys.next && e.target.index < this.tabTriggersLength - 1 && !this.isAccordion) {
+      targetIndex = e.target.index + 1;
+    } else if (e.keyCode === this.keys.space || e.keyCode === this.keys.enter) {
+      targetIndex = e.target.index;
+    } else {
+      return;
+    }
+
+    this.selectTab(targetIndex, true);
+  };
+
+  AccordionTabs.prototype._show = function (index, userInvoked) {
+    this.tabPanels[index].removeAttribute('tabindex');
+    this.tabTriggers[index].removeAttribute('tabindex');
+    this.tabTriggers[index].classList.add('is-selected');
+    this.tabTriggers[index].setAttribute('aria-selected', true);
+    this.accordionTriggers[index].setAttribute('aria-expanded', true);
+    var panelContent = this.tabPanels[index].getElementsByClassName("content")[0];
+    panelContent.setAttribute('aria-hidden', false);
+    panelContent.classList.remove('is-hidden');
+    panelContent.classList.add('is-open');
+    this.tabPanels[index].classList.remove('is-hidden');
+    this.tabPanels[index].classList.add('is-open');
+
+    if (userInvoked) {
+      this.tabTriggers[index].focus();
+    }
+  };
+
+  AccordionTabs.prototype._hide = function (index) {
+    this.tabTriggers[index].classList.remove('is-selected');
+    this.tabTriggers[index].setAttribute('aria-selected', false);
+    this.tabTriggers[index].setAttribute('tabindex', -1);
+    this.accordionTriggers[index].setAttribute('aria-expanded', false);
+    var panelContent = this.tabPanels[index].getElementsByClassName("content")[0];
+    panelContent.setAttribute('aria-hidden', true);
+    panelContent.classList.remove('is-open');
+    panelContent.classList.add('is-hidden');
+    this.tabPanels[index].classList.remove('is-open');
+    this.tabPanels[index].classList.add('is-hidden');
+    this.tabPanels[index].setAttribute('tabindex', -1);
+  };
+
+  AccordionTabs.prototype.selectTab = function (index, userInvoked) {
+    if (index === null) {
+      if (this.isAccordion) {
+        return;
+      } else {
+        index = 0;
+      }
+    }
+
+    if (!this.tabPanels[index].classList.contains('is-hidden') && userInvoked) {
+      if (index === this.selectedTab) {
+        this.selectedTab = null;
+      } else {
+        this.selectedTab = null;
+        this.prevSelectedTab = index;
+      }
+
+      this._hide(index);
+
+      return;
+    }
+
+    if (this.isAccordion) {
+      this.prevSelectedTab = this.selectedTab;
+      this.selectedTab = index;
+    } else {
+      if (this.prevSelectedTab === null || !this.isAccordion) {
+        for (var i = 0; i < this.tabTriggersLength; i++) {
+          if (i !== index) {
+            this._hide(i);
+          }
+        }
+      } else {
+        this._hide(this.selectedTab);
+      }
+
+      this.prevSelectedTab = this.selectedTab;
+      this.selectedTab = index;
+    }
+
+    this._show(this.selectedTab, userInvoked);
+  };
+
+  AccordionTabs.prototype.destroy = function () {
+    for (var i = 0; i < this.tabTriggersLength; i++) {
+      this.tabTriggers[i].classList.remove('is-selected');
+      this.tabTriggers[i].removeAttribute('aria-selected');
+      this.tabTriggers[i].removeAttribute('tabindex');
+      this.tabPanels[i].classList.remove('is-hidden');
+      this.tabPanels[i].removeAttribute('aria-hidden');
+      this.tabPanels[i].removeAttribute('tabindex');
+      this.tabTriggers[i].removeEventListener('click', this.clickListener, false);
+      this.tabTriggers[i].removeEventListener('keydown', this.keydownListener, false);
+      delete this.tabTriggers[i].index;
+    }
+
+    this.el.classList.remove('is-initialized');
+  };
+  /**
+    * Get the closest matching element up the DOM tree.
+    * @private
+    * @param  {Element} elem     Starting element
+    * @param  {String}  selector Selector to match against
+    * @return {Boolean|Element}  Returns null if not match found
+    */
+
+
+  AccordionTabs.prototype._getClosest = function (elem, selector) {
+    // Element.matches() polyfill
+    if (!Element.prototype.matches) {
+      Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (s) {
+        var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+
+        while (--i >= 0 && matches.item(i) !== this) {}
+
+        return i > -1;
+      };
+    } // Get closest match
+
+
+    for (; elem && elem !== document; elem = elem.parentNode) {
+      if (elem.matches(selector)) return elem;
+    }
+
+    return null;
+  }; // Pass in the objects to merge as arguments.
+  // For a deep extend, set the first argument to `true`.
+
+
+  AccordionTabs.prototype._extend = function () {
+    // Variables
+    var extended = {};
+    var deep = false;
+    var i = 0;
+    var length = arguments.length; // Check if a deep merge
+
+    if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
+      deep = arguments[0];
+      i++;
+    } // Merge the object into the extended object
+
+
+    var merge = function (obj) {
+      for (var prop in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+          // If deep merge and property is an object, merge properties
+          if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+            extended[prop] = extend(true, extended[prop], obj[prop]);
+          } else {
+            extended[prop] = obj[prop];
+          }
+        }
+      }
+    }; // Loop through each object and conduct a merge
+
+
+    for (; i < length; i++) {
+      var obj = arguments[i];
+      merge(obj);
+    }
+
+    return extended;
+  }; // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+
+
+  AccordionTabs.prototype._debounce = function (func, wait, immediate) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments;
+
+      var later = function () {
+        timeout = null;
+
+        if (!immediate) {
+          func.apply(context, args);
+        }
+
+        ;
+      };
+
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+
+      if (callNow) {
+        func.apply(context, args);
+      }
+
+      ;
+    };
+  };
+
+  var slice = Array.prototype.slice;
+
+  function $(expr, con) {
+    return typeof expr === "string" ? (con || document).querySelector(expr) : expr || null;
+  }
+
+  function $$(expr, con) {
+    return slice.call((con || document).querySelectorAll(expr));
+  } // Initialization
+
+
+  function init() {
+    $$(".js-tabs").forEach(function (input) {
+      new AccordionTabs(input);
+    });
+  } // Are we in a browser? Check for Document constructor
+
+
+  if (typeof Document !== "undefined") {
+    // DOM already loaded?
+    if (document.readyState !== "loading") {
+      init();
+    } else {
+      // Wait for it
+      document.addEventListener("DOMContentLoaded", init);
+    }
+  } // Export on self when in a browser
+
+
+  if (typeof self !== "undefined") {
+    self.AccordionTabs = AccordionTabs;
+  } // Expose as a CJS module
+
+
+  if ( true && module.exports) {
+    module.exports = AccordionTabs;
+  }
+
+  return AccordionTabs;
+})();
+
+/***/ }),
+
+/***/ "./frontend.js":
+/*!*********************!*\
+  !*** ./frontend.js ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/blocks/tabs/style.scss */ "./src/blocks/tabs/style.scss");
+/* harmony import */ var _src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_blocks_tabs_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _a11y_accordion_tabs_a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./a11y-accordion-tabs/a11y-accordion-tabs */ "./a11y-accordion-tabs/a11y-accordion-tabs.js");
+/* harmony import */ var _a11y_accordion_tabs_a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_a11y_accordion_tabs_a11y_accordion_tabs__WEBPACK_IMPORTED_MODULE_1__);
+/**
+ * Styles and scripts that goes to the frontend
+ */
+
+
+
+if (window.location.hash) {
+  const hash = window.location.hash.substring(1);
+  let element = document.getElementById(hash);
+
+  if (element) {
+    let count = 0;
+
+    while ((element = element.previousSibling) !== null) {
+      count++;
+    }
+
+    const tabs = document.getElementsByClassName('wp-block-ubc-tabs');
+    tabs[0].dataset.selectedTab = count;
+  }
+}
+
+const tabs = document.querySelectorAll('.wp-block-ubc-tabs'); // eslint-disable-next-line no-undef
+
+tabs.forEach(tab => new AccordionTabs(tab));
+
+/***/ }),
+
+/***/ "./src/blocks/tabs/style.scss":
+/*!************************************!*\
+  !*** ./src/blocks/tabs/style.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=frontend.js.map

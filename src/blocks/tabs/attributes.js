@@ -21,6 +21,10 @@ const attributes = {
 		type: 'number',
 		default: 0,
 	},
+	blockInitialized: {
+		type: 'boolean',
+		default: false,
+	}
 };
 
 export default attributes;

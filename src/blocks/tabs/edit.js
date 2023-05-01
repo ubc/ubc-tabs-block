@@ -7,7 +7,7 @@ const { PanelBody, PanelRow, Button, ButtonGroup } = wp.components;
 const { RichText, InnerBlocks } = wp.blockEditor;
 const { compose } = wp.compose;
 const { withDispatch, withSelect } = wp.data;
-const { useState } = wp.element;
+const { useState, useEffect } = wp.element;
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep } from 'lodash';
 
@@ -31,12 +31,22 @@ const Edit = ( props ) => {
 		rootId,
 		insertBlock,
 	} = props;
-	const { tabs, initialTabSelected, className } = attributes;
+	const { tabs, initialTabSelected, className, blockInitialized } = attributes;
 	// Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 	const [ currentTabSelected, setCurrentTabSelected ] = useState(
 		initialTabSelected ? initialTabSelected : 0
 	);
 	const allowedBlocks = [ 'ubc/tab' ];
+
+	useEffect(() => {
+		if ( ! blockInitialized ) {
+			setAttributes({
+				blockInitialized: true,
+				tabs: cloneDeep(tabs)
+			});
+		}
+	}, []);
+
 	/**
 	 * Render innerblocks { tab blocks } based on the length of tab titles array.
 	 */

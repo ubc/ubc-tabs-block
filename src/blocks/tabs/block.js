@@ -46,6 +46,7 @@ registerBlockType( 'ubc/tabs', {
 							id: uuidv4()
 						};
 					}),
+					blockInitialized: false
                 };
             },
 			supports,
