@@ -6,9 +6,13 @@
 import attributes from './attributes';
 import Edit from './edit';
 import Save from './save';
+import { v1 } from './deprecation';
+import { v4 as uuidv4 } from 'uuid';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+
+const supports = {};
 
 registerBlockType( 'ubc/tabs', {
 	title: __( 'UBC Tabs Block', 'ubc-tabs' ),
@@ -21,4 +25,31 @@ registerBlockType( 'ubc/tabs', {
 	attributes,
 	edit: Edit,
 	save: Save,
+	deprecated: [
+		{
+			attributes: {
+				tabTitles: {
+					type: 'array',
+					default: [ 'Tab1', 'Tab2' ],
+				},
+				initialTabSelected: {
+					type: 'number',
+					default: 0,
+				},
+			},
+			migrate( props ) {
+                return {
+					...props,
+                    tabs: props.tabTitles.map(( tabTitle ) => {
+						return {
+							title: tabTitle,
+							id: uuidv4()
+						};
+					}),
+                };
+            },
+			supports,
+			save: v1,
+		}
+	]
 } );

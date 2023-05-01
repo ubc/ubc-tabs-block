@@ -1,20 +1,21 @@
 const { InnerBlocks } = wp.blockEditor;
 
-export default ( props ) => {
-	const { index, title, id } = props.attributes;
+// 1. Because in version 1.0.0 a11y-accordion-tabs fixed the typo from accordeon to accirdion. We need to apply similliar fix to make it work.
+export const v1 =  ( props ) => {
+	const { index, title } = props.attributes;
 	return (
 		<section
 			index={ index + 1 }
 			className={ `ubc-accordion-tabs__tabs-panel js-tabs-panel${
 				index === 0 ? ' active' : ''
 			}` }
-			id={ `section-${id}` }
+			id={ `section${ index + 1 }` }
 			role="tabpanel"
-			aria-labelledby={ `tab-${id}` }
+			aria-labelledby={ `tab${ index + 1 }` }
 		>
 			<div
-				className="ubc-accordion-tabs__accordion-trigger js-accordion-trigger"
-				aria-controls={ `section-${id}` }
+				className="ubc-accordion-tabs__accordion-trigger js-accordeon-trigger"
+				aria-controls={ `section${ index + 1 }` }
 				tabIndex="0"
 			>
 				{ title }

@@ -6,9 +6,12 @@
 import Edit from './edit';
 import attributes from './attributes';
 import Save from './save';
+import { v1 } from './deprecation';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+
+const supports = {};
 
 registerBlockType( 'ubc/tab', {
 	parent: [ 'ubc/tabs' ],
@@ -22,4 +25,16 @@ registerBlockType( 'ubc/tab', {
 	attributes,
 	edit: Edit,
 	save: Save,
+	deprecated: [
+		{
+			attributes,
+			migrate() {
+                return {
+                    id: '123',
+                };
+            },
+			supports,
+			save: v1,
+		}
+	]
 } );

@@ -3,7 +3,7 @@
  */
 
 import './src/blocks/tabs/style.scss';
-import 'a11y-accordion-tabs';
+import './a11y-accordion-tabs/a11y-accordion-tabs';
 
 if ( window.location.hash ) {
 	const hash = window.location.hash.substring( 1 );

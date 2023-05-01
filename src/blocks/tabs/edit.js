@@ -8,11 +8,13 @@ const { RichText, InnerBlocks } = wp.blockEditor;
 const { compose } = wp.compose;
 const { withDispatch, withSelect } = wp.data;
 const { useState } = wp.element;
+import { v4 as uuidv4 } from 'uuid';
+import { cloneDeep } from 'lodash';
 
 /**
  * This component create editor UI for tabs block.
  * A tabs block contains two parts
- * 	- Tab title, an array of tab titles associated with attribute 'tabTitles'
+ * 	- Tabs, an array of tab titles associated with attribute 'tabs'
  *  - Tab content, an array of child tab block rendered by innderblock template.
  * Tab titles and Tab content are complete seprate. For example, action such as move tab position or delete a tab will envolve actions for both tab title and tab content.
  * @param {object} props block props.
@@ -24,23 +26,22 @@ const Edit = ( props ) => {
 		removeBlock,
 		onMoveUp,
 		onMoveDown,
-		tabs,
+		childTabIds,
 		isSelected,
 		rootId,
 		insertBlock,
 	} = props;
-	const { tabTitles, initialTabSelected, className } = attributes;
+	const { tabs, initialTabSelected, className } = attributes;
 	// Keep current selected tab in editor as a state defaults to initialSelected tab attribute.
 	const [ currentTabSelected, setCurrentTabSelected ] = useState(
 		initialTabSelected ? initialTabSelected : 0
 	);
 	const allowedBlocks = [ 'ubc/tab' ];
-
 	/**
 	 * Render innerblocks { tab blocks } based on the length of tab titles array.
 	 */
 	const getInnerBlockTemplates = () => {
-		return tabTitles.map( function( title, key ) {
+		return tabs.map( function( tab, key ) {
 			return [
 				'ubc/tab',
 				{
@@ -54,13 +55,13 @@ const Edit = ( props ) => {
 	 * Abstracted setter for tab title based on index in the tab titles array
 	 *
 	 * @param {number} key index of the tab in the array.
-	 * @param {string} text new title to be updated.
+	 * @param {string} title new title to be updated.
 	 */
-	const updateSingleTitle = ( key, text ) => {
-		const tabTitlesClone = [ ...tabTitles ];
-		tabTitlesClone[ key ] = text;
+	const updateSingleTabTitle = ( key, title ) => {
+		const tabsClone = cloneDeep(tabs);
+		tabsClone[ key ].title = title;
 		setAttributes( {
-			tabTitles: tabTitlesClone,
+			tabs: tabsClone,
 		} );
 	};
 
@@ -81,7 +82,7 @@ const Edit = ( props ) => {
 	 * @return {boolean} if index is the last in the array.
 	 */
 	const isLast = ( index ) => {
-		return index === tabTitles.length - 1;
+		return index === tabs.length - 1;
 	};
 
 	/**
@@ -96,20 +97,20 @@ const Edit = ( props ) => {
 					onClick={ ( event ) => {
 						event.preventDefault();
 						// move tab title up inside tab titles array
-						const newTabTitles = [ ...tabTitles ];
-						[ newTabTitles[ key - 1 ], newTabTitles[ key ] ] = [
-							newTabTitles[ key ],
-							newTabTitles[ key - 1 ],
+						const newTab = cloneDeep(tabs);
+						[ newTab[ key - 1 ], newTab[ key ] ] = [
+							newTab[ key ],
+							newTab[ key - 1 ],
 						];
 						setAttributes( {
-							tabTitles: newTabTitles,
+							tabs: newTab,
 						} );
 						// Move the actual tab block up
 						onMoveUp( key );
 						// Move focus as well to make sure action does not cause different tab to be selected.
 						setCurrentTabSelected( key - 1 );
 					} }
-					disabled={ isFirst( key ) || tabTitles.length <= 1 }
+					disabled={ isFirst( key ) || tabs.length <= 1 }
 				>
 					<span className="dashicons dashicons-arrow-left-alt2"></span>
 				</Button>
@@ -118,20 +119,20 @@ const Edit = ( props ) => {
 					onClick={ ( event ) => {
 						event.preventDefault();
 						// Move tab title down inside tab titles array
-						const newTabTitles = [ ...tabTitles ];
-						[ newTabTitles[ key ], newTabTitles[ key + 1 ] ] = [
-							newTabTitles[ key + 1 ],
-							newTabTitles[ key ],
+						const newTab = cloneDeep(tabs);
+						[ newTab[ key ], newTab[ key + 1 ] ] = [
+							newTab[ key + 1 ],
+							newTab[ key ],
 						];
 						setAttributes( {
-							tabTitles: newTabTitles,
+							tabs: newTab,
 						} );
 						// Move the actual tab block down
 						onMoveDown( key );
 						// Move focus as well to make sure action does not cause different tab to be selected.
 						setCurrentTabSelected( key + 1 );
 					} }
-					disabled={ isLast( key ) || tabTitles.length <= 1 }
+					disabled={ isLast( key ) || tabs.length <= 1 }
 				>
 					<span className="dashicons dashicons-arrow-right-alt2"></span>
 				</Button>
@@ -140,11 +141,11 @@ const Edit = ( props ) => {
 					onClick={ ( event ) => {
 						event.preventDefault();
 						// Remove tab title from tab titles array
-						const remainingTabs = tabTitles.filter(
+						const remainingTabs = tabs.filter(
 							( title, index ) => key !== index
 						);
 						setAttributes( {
-							tabTitles: remainingTabs,
+							tabs: remainingTabs,
 						} );
 						// Remove the actual tab block
 						removeBlock( key );
@@ -163,14 +164,17 @@ const Edit = ( props ) => {
 
 						// Create the tab block and insert at the end of the root block.
 						await insertBlock(
-							wp.blocks.createBlock( 'ubc/tab', { index: tabs.length } ),
-							tabs.length,
+							wp.blocks.createBlock( 'ubc/tab', { index: childTabIds.length } ),
+							childTabIds.length,
 							rootId
 						);
 
 						// Add a new title into the title array.
 						setAttributes( {
-							tabTitles: [ ...tabTitles, 'Tab' ],
+							tabs: [ ...tabs, {
+								title: 'Tab',
+								id: uuidv4()
+							} ],
 						} );
 					} }
 				>
@@ -186,7 +190,7 @@ const Edit = ( props ) => {
 	return (
 		<section className={ `ubc-accordion-tabs ${ className ? className : '' }` }>
 			<ul className="ubc-accordion-tabs__tab-list" role="tablist">
-				{ tabTitles.map( ( singleTitle, key ) => {
+				{ tabs.map( ( singleTab, key ) => {
 					return (
 						<li role="presentation" key={ key }>
 							{ isSelected ? renderToolbar( key ) : null }
@@ -205,8 +209,8 @@ const Edit = ( props ) => {
 								} }
 							>
 								<RichText
-									value={ singleTitle }
-									onChange={ ( newContent ) => updateSingleTitle( key, newContent ) }
+									value={ singleTab.title }
+									onChange={ ( newContent ) => updateSingleTabTitle( key, newContent ) }
 								/>
 							</button>
 						</li>
@@ -216,8 +220,8 @@ const Edit = ( props ) => {
 			<TabsContext.Provider
 				value={ {
 					currentTabSelected,
+					childTabIds,
 					tabs,
-					tabTitles,
 				} }
 			>
 				<InnerBlocks
@@ -231,7 +235,7 @@ const Edit = ( props ) => {
 				<PanelBody title="Settings" initialOpen={ true }>
 					<PanelRow>Initial tab selected</PanelRow>
 					<ButtonGroup style={ { marginTop: '10px' } }>
-						{ tabTitles.map( ( tabTitle, index ) => {
+						{ tabs.map( ( tab, index ) => {
 							return (
 								<Button
 									onClick={ ( event ) => {
@@ -244,7 +248,7 @@ const Edit = ( props ) => {
 									isPrimary={ initialTabSelected === index }
 									isDefault={ initialTabSelected !== index }
 								>
-									{ tabTitle }
+									{ tab.title }
 								</Button>
 							);
 						} ) }
@@ -260,11 +264,11 @@ export default compose( [
 		const { getBlockOrder } = select( 'core/block-editor' );
 		return {
 			// Get an array of child blocks( tab blocks ) client ID in order.
-			tabs: getBlockOrder( ownProps.clientId ),
+			childTabIds: getBlockOrder( ownProps.clientId ),
 			rootId: ownProps.clientId,
 		};
 	} ),
-	withDispatch( ( dispatch, { tabs, clientId } ) => {
+	withDispatch( ( dispatch, { childTabIds, clientId } ) => {
 		const { removeBlock, moveBlocksDown, moveBlocksUp, insertBlock } = dispatch(
 			'core/block-editor'
 		);
@@ -274,21 +278,21 @@ export default compose( [
 			 * @param {integer} index position index in the child tab blocks array.
 			 */
 			onMoveDown( index ) {
-				moveBlocksDown( [ tabs[ index ] ], clientId );
+				moveBlocksDown( [ childTabIds[ index ] ], clientId );
 			},
 			/**
 			 * Move specific tab block up, switch position with previous tab block.
 			 * @param {integer} index position index in the child tab blocks array.
 			 */
 			onMoveUp( index ) {
-				moveBlocksUp( [ tabs[ index ] ], clientId );
+				moveBlocksUp( [ childTabIds[ index ] ], clientId );
 			},
 			/**
 			 * Remove specific tab block.
 			 * @param {integer} index position index in the child tab blocks array.
 			 */
 			removeBlock( index ) {
-				removeBlock( tabs[ index ] );
+				removeBlock( childTabIds[ index ] );
 			},
 			insertBlock,
 		};

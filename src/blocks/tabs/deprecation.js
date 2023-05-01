@@ -1,29 +1,32 @@
 /**
  * BLOCK: Call To Action
  */
+import WPSanitizeTitle from '../helper';
 const { InnerBlocks } = wp.blockEditor;
 
-const Save = ( props ) => {
+export const v1 = ( props ) => {
 	const { attributes } = props;
-	const { tabs, initialTabSelected, className } = attributes;
+	const { tabTitles, initialTabSelected, className } = attributes;
 	return (
 		<section
 			className={ `ubc-accordion-tabs ${ className ? className : '' }` }
 			data-selected-tab={ initialTabSelected }
 		>
 			<ul className="ubc-accordion-tabs__tab-list" role="tablist">
-				{ tabs.map( ( singleTab, key ) => {
+				{ tabTitles.map( ( singleTitle, key ) => {
+					const id = singleTitle.toLowerCase().replace( / /g, '-' );
 					return (
-						<li role="presentation" key={ key }>
+						<li id={ id } role="presentation" key={ key }>
 							{
 								<a
 									role="tab"
-									aria-controls={ `section-${singleTab.id}` }
+									id={ WPSanitizeTitle( singleTitle ) }
+									aria-controls={ `section${ key + 1 } ` }
 									aria-selected={ key === initialTabSelected }
 									className="ubc-accordion-tabs__tabs-trigger js-tabs-trigger"
-									href={ `#section-${singleTab.id}` }
+									href={ `#section${ key + 1 }` }
 								>
-									{ singleTab.title }
+									{ singleTitle }
 								</a>
 							}
 						</li>
@@ -34,5 +37,3 @@ const Save = ( props ) => {
 		</section>
 	);
 };
-
-export default Save;
