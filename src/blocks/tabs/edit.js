@@ -7,7 +7,7 @@ const { PanelBody, PanelRow, Button, ButtonGroup } = wp.components;
 const { RichText, InnerBlocks } = wp.blockEditor;
 const { compose } = wp.compose;
 const { withDispatch, withSelect } = wp.data;
-const { useState, useEffect } = wp.element;
+const { useState, useEffect, RawHTML } = wp.element;
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep } from 'lodash';
 
@@ -258,7 +258,7 @@ const Edit = ( props ) => {
 									isPrimary={ initialTabSelected === index }
 									isDefault={ initialTabSelected !== index }
 								>
-									{ tab.title }
+									<RawHTML>{ tab.title }</RawHTML>
 								</Button>
 							);
 						} ) }

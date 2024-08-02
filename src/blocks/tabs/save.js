@@ -2,6 +2,7 @@
  * BLOCK: Call To Action
  */
 const { InnerBlocks } = wp.blockEditor;
+const { RawHTML } = wp.element;
 
 const Save = ( props ) => {
 	const { attributes } = props;
@@ -23,7 +24,7 @@ const Save = ( props ) => {
 									className="ubc-accordion-tabs__tabs-trigger js-tabs-trigger"
 									href={ `#section-${key}` }
 								>
-									{ singleTab.title }
+									<RawHTML>{ singleTab.title }</RawHTML>
 								</a>
 							}
 						</li>
