@@ -18,10 +18,10 @@ const Save = ( props ) => {
 							{
 								<a
 									role="tab"
-									aria-controls={ `section-${singleTab.id}` }
+									aria-controls={ `section-${key}` }
 									aria-selected={ key === initialTabSelected }
 									className="ubc-accordion-tabs__tabs-trigger js-tabs-trigger"
-									href={ `#section-${singleTab.id}` }
+									href={ `#section-${key}` }
 								>
 									{ singleTab.title }
 								</a>
